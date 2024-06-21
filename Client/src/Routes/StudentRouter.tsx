@@ -22,6 +22,7 @@ import SingleEnrolledCourse from '../Components/Student/EnrolledCourse/SingleEnr
 import SingleEnrolledCoursePage from '../Pages/Student/SingleEnrolledCoursePage';
 import StudentChatPage from '../Pages/Student/StudentChatPage';
 import TutorPage from '../Pages/Student/TutorPage';
+import EnrollmentHistory from '../Components/Student/EnrolledCourse/EnrollmentHistory';
 
 
 const StudentRouter = () => {
@@ -56,6 +57,7 @@ const StudentRouter = () => {
         <Route path="/enrolled-course" element={<EnrolledCoursePage/>} />
         <Route path="/tutor-list" element={<TutorPage/>} />
         <Route path="/enrolled-singlecourse" element={<SingleEnrolledCoursePage/>} />
+        <Route path="/enrollment-history" element = {<EnrollmentHistory/>} />
         <Route path="/student-chat/:tutorId/:chatId" element={<StudentChatPage/>} />
         
 
