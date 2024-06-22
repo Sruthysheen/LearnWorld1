@@ -70,16 +70,16 @@ function Login() {
       console.log(response,"this is student response");
       
 
-      if(response.status === 200) {
+      if(response.data.status) {
         dispatch(login(response.data.token));
         localStorage.setItem("Token",`${response.data.token}`);
         localStorage.setItem("isVerified",'true')
         dispatch(registerAction(response.data.response));
         navigate("/", {replace: true});
       } else {
-        if(response.response.status === 404) {
-          toast.error(response.response.data.message);
-        }
+       
+          toast.error(response.data.message);
+        
       }
     } catch (error) {  
     }finally {

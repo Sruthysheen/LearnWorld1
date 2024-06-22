@@ -30,36 +30,39 @@ function StudentWallet() {
   const [transactions,setTransactions] = useState([])
 
   useEffect(() => {
-    
     const fetchWalletData = async () => {
       try {
-        const balanceResponse = await getBalance(studentId)
-        const transactionsResponse = await getTransactions(studentId)
-        const balanceData = balanceResponse.data;
-        
-        
-        console.log(balanceData,"***********************");
-        
-        const transactionsData = transactionsResponse.data;
+        const balanceResponse = await getBalance(studentId);
+        const transactionsResponse = await getTransactions(studentId);
 
-        setBalance(balanceData.balance);
-        setTransactions(transactionsData.transactions);
+        const balanceData = balanceResponse.data;
+        const transactionsData = transactionsResponse.data; 
+
+        setBalance(balanceData);
+        setTransactions(transactionsData); 
+
+        const sortedTransactions = transactionsData.sort((a:any, b:any) => {
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+        
+        setTransactions(sortedTransactions); 
+
         const walletData = {
           _id: balanceData._id,
           studentId: studentId,
-          balance: balanceData.balance,
-          transactions: transactionsData.transactions,
+          balance: balanceData,
+          transactions: transactionsData,
           enrollments: [],
         };
-        dispatch(setWalletData(walletData))
+
+        dispatch(setWalletData(walletData));
       } catch (error) {
         toast.error('No sufficient wallet amount');
       }
     };
 
     fetchWalletData();
-  }, [studentId,dispatch]);
-
+  }, [studentId, dispatch]);
 
 
   const handleDeposit = (amount:any) => {

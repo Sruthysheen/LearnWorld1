@@ -78,14 +78,16 @@ const io:Server = require('socket.io')(5001, {
         conversationId,
         senderId,
         receiverId,
-        message
+        message,
+        media
       }) => {
 
         const data={
           conversationId,
           senderId,
           receiverId,
-          message
+          message,
+          media
          } 
            //create  a messaage
 const response=await createAMessage(data) 

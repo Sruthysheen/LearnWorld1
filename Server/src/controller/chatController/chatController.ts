@@ -148,15 +148,28 @@ const sendMessage = async (req: any, res: Response) => {
         conversationId,
         senderId,
         receiverId,
-        message}=data
+        message,
+        media}=data
 
         const newMessage= await MessageModel.create({
           conversationId,
           senderId,
           receiverId,
-          message
+          message,
+          media
         })
+        console.log(newMessage,"..........................");
+        
 
+        await ChatModel.findByIdAndUpdate(
+          conversationId,
+          {
+            lastMessage: newMessage.message,
+            $push: { messages: newMessage._id },
+          },
+          { new: true }
+        );
+    
         if(newMessage){
           return {status:true,data:newMessage}
         }else{

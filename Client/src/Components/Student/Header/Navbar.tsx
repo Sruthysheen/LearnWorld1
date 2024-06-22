@@ -160,6 +160,8 @@ function Navbar() {
                     <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
                       <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</Link>
                       <Link to="/enrolled-course" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Enrolled Courses</Link>
+                      <Link to="/enrollment-history" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Enrollment History</Link>
+                      <Link to="/wallet" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Wallet</Link>
                       <Link to="/tutor-list" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tutors</Link>
                       <button onClick={handleLogout} className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
                     </div>

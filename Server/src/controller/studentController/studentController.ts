@@ -14,6 +14,8 @@ import Stripe from "stripe";
 import orderModel from "../../models/orderModel";
 import jwt from "jsonwebtoken";
 import Tutor from '../../models/tutorModel';
+import Wallet from '../../models/walletModel';
+import ratingModel from '../../models/ratingModel';
 
 
 
@@ -127,11 +129,11 @@ const studentLogin = async(req: Request, res: Response) =>{
         
         const student = await Student.findOne({studentemail}).where({isBlocked:false})
         if(!student){
-            return res.status(401).json({message:"Student is not existed"});
+            return res.json({status:false,message:"Student is not existed"});
         }
         if(student?.isBlocked == true)
         {
-            return res.status(401).json({message:"Student is blocked"})
+            return res.json({status:false,message:"Student is blocked"})
         }
         if(student){
         const passwordMatch= await student.matchPassword(password);
@@ -140,13 +142,15 @@ const studentLogin = async(req: Request, res: Response) =>{
             const accessToken = generateAccessToken(student._id);
             const refreshToken =generateRefreshToken(student._id)
             req.session.accessToken = accessToken;
-            return res.json({response:student,token:refreshToken});
+            return res.json({status:true,response:student,token:refreshToken});
+        }else{
+          return res.json({status:false,message:"Invalid email or password"})
         } 
     } else {
-        return res.status(401).json({message:"Invalid email or password"})
+        return res.json({status:false,message:"Invalid email or password"})
     }
     } catch (error) {
-        return res.status(500).json({message:"Internal server error"})
+        return res.json({status:false,message:"Internal server error"})
     }
 }
 
@@ -548,6 +552,7 @@ console.log(stripeSecretKey, "Keyy");
             tutorId: tutorId,
             courseId: courseId,
             amount: amount,
+            paymentMethod: 'Stripe',
           });
   
           await order.save();
@@ -693,6 +698,199 @@ console.log(stripeSecretKey, "Keyy");
   };
 
 
+
+  const cancelCourse = async (req:Request, res:Response) => {
+    try {
+      const { courseId, studentId } = req.body;
+      console.log(req.body, "**********************************");
+      const courseOrder = await orderModel.findOne({ courseId: courseId, studentId: studentId });
+  
+      if (!courseOrder) {
+        return res.status(400).json({ message: "Course not found" });
+      }
+  
+      const coursePrice = courseOrder.amount;  
+      const courseCancelled = await orderModel.findOneAndDelete({ courseId: courseId, studentId: studentId });
+      console.log(courseCancelled);
+  
+      if (courseCancelled) {
+        let studentWallet = await Wallet.findOne({ studentId: studentId });
+  
+        if (!studentWallet) {
+          studentWallet = new Wallet({
+            studentId: studentId,
+            balance: coursePrice,
+            transactions: [{
+              type: 'credit',
+              amount: coursePrice,
+              date: new Date(),
+            }],
+            enrollments: [{
+              courseId: courseId,
+              date: new Date(),
+              refunded: true,
+            }],
+          });
+        } else {
+         
+          studentWallet.balance += coursePrice;
+          studentWallet.transactions.push({
+            type: 'credit',
+            amount: coursePrice,
+            date: new Date(),
+          });
+  
+          const enrollment = studentWallet.enrollments.find(enrollment =>
+            enrollment.courseId.toString() === courseId.toString()
+          );
+  
+          if (enrollment) {
+            enrollment.refunded = true;
+          } else {
+            studentWallet.enrollments.push({
+              courseId: courseId,
+              date: new Date(),
+              refunded: true,
+            });
+          }
+        }
+  
+        await studentWallet.save();
+  
+        return res.status(200).json({ message: "Course cancelled and amount refunded to wallet" });
+      } else {
+        return res.status(400).json({ message: "Not able to cancel the course" });
+      }
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "An error occurred" });
+    }
+  }
+
+
+  const getBalance = async (req: Request, res: Response) => {
+    try {
+      const { studentId } = req.params;
+      console.log(studentId, "..............................");
+  
+      const wallet = await Wallet.findOne({ studentId });
+  
+      if (wallet) {
+        return res.status(200).json(wallet.balance);
+      } else {
+        return res.status(400).json({ message: "Balance is not available" });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+
+  const getTransactions = async (req: Request, res: Response) => {
+    try {
+      const { studentId } = req.params;
+      console.log(studentId, "..............................");
+  
+      const wallet = await Wallet.findOne({ studentId });
+  
+      if (wallet && wallet.transactions.length > 0) {
+        
+        return res.status(200).json(wallet.transactions);
+      } else {
+        return res.status(404).json({ message: "Transactions are not available" });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  };
+
+
+  const updateWalletBalance = async (req: Request, res: Response) => {
+    try {
+      const { studentId, amount, cartItems } = req.body;
+  
+      const wallet = await Wallet.findOne({ studentId });
+      if (!wallet) {
+        return res.status(404).json({ message: 'Wallet not found' });
+      }
+  
+      if (wallet.balance + amount < 0) {
+        return res.status(400).json({ message: 'Insufficient balance' });
+      }
+      wallet.balance += amount;
+      wallet.transactions.push({
+        type: amount < 0 ? 'debit' : 'credit',
+        amount: Math.abs(amount),
+        date: new Date(),
+      });
+      const orders = cartItems.map((cartItem: any) => ({
+        studentId: studentId,
+        tutorId: cartItem.course[0]?.tutor,
+        courseId: cartItem.course[0]._id,
+        amount: cartItem.course[0]?.courseFee,
+        status: 'success',
+        paymentMethod:'Wallet',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }));
+  
+      await orderModel.insertMany(orders);
+      await wallet.save();
+  
+      res.status(200).json({ message: 'Wallet balance updated and orders created successfully', walletBalance: wallet.balance });
+    } catch (error) {
+      console.error("Error updating wallet balance and creating orders:", error);
+      res.status(500).json({ message: 'Error updating wallet balance and creating orders' });
+    }
+  }
+
+
+  const postReview = async (req: Request, res: Response) => { 
+    try {
+      const { review, rating, courseId, studentId } = req.body;
+      console.log(req.body); 
+  
+      let submittedReview = await ratingModel.findOne({ courseId: courseId, studentId: studentId });
+      if (!submittedReview) {
+        submittedReview = new ratingModel({
+          courseId: courseId,
+          studentId: studentId, 
+          rating: rating,
+          review: review
+        });
+        await submittedReview.save();
+      } else {
+        submittedReview.review = review;
+        submittedReview.rating = rating;
+        await submittedReview.save();
+      }
+      res.status(200).json({ message: "Review submitted successfully", rating: submittedReview });
+    } catch (error) {
+      console.error("Error while submitting review:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };
+
+
+  const getRating = async (req:Request, res:Response) => {
+    try {
+      const { courseId, studentId } = req.params; 
+      const studentRating = await ratingModel.find({ courseId, studentId }).populate('studentId');
+      if (!studentRating) {
+        return res.status(400).json({ message: "Rating details not found" });
+      } else {
+        return res.status(200).json({ message: "My rating details", data:studentRating });
+      }
+    } catch (error) {
+      console.error("Error fetching rating:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };
+  
+  
+
+
     const studentLogout = async(req:Request,res:Response)=>{
         try {
             res.status(200).json({message:"Logout successful"})
@@ -731,5 +929,11 @@ export {
     enrolledCourses,
     fetchCategory,
     getTutorList,
-    getTutorDetails
+    getTutorDetails,
+    cancelCourse,
+    getBalance,
+    getTransactions,
+    updateWalletBalance,
+    postReview,
+    getRating
 }

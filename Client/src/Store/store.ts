@@ -8,6 +8,7 @@ import tutorReducer from "../Slices/tutorSlice/tutorSlice";
 import adminReducer from "../Slices/adminSlice/adminSlice";
 import courseReducer from "../Slices/tutorSlice/courseSlice";
 import cartReducer from '../Slices/studentSlice/cartSlice';
+import walletReducer from '../Slices/studentSlice/walletSlice';
 
 
 const tutorConfig = {
@@ -36,11 +37,17 @@ const cartConfig={
   storage 
 }
 
+const walletConfig={
+  key : 'wallet',
+  storage
+}
+
 const persistedTutorReducer = persistReducer(tutorConfig, tutorReducer);
 const persistedCourseReducer = persistReducer(courseConfig, courseReducer);
 const persistedStudentReducer = persistReducer(studentConfig, studentReducer);
 const persistedAdminReducer = persistReducer(adminConfig, adminReducer);
 const persistedCartReducer=persistReducer(cartConfig , cartReducer);
+const persistedWalletReducer = persistReducer(walletConfig, walletReducer)
 
 
 const store = configureStore({
@@ -49,8 +56,10 @@ const store = configureStore({
     tutor: persistedTutorReducer,
     admin: persistedAdminReducer,
     course: persistedCourseReducer,
-    cart:persistedCartReducer
+    cart:persistedCartReducer,
+    wallet:persistedWalletReducer
   },
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

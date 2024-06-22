@@ -23,7 +23,7 @@ import ChatPage from '../Pages/Student/ChatPage';
 const TutorRouter = () => {
     const location = useLocation();
     const showNavbar = !['/tutor/tutorlogin', '/tutor/tutorregister', '/tutor/home'].includes(location.pathname);  
-    const showFooter = !['/tutor/tutorlogin', '/tutor/tutorregister', '/tutor/home'].includes(location.pathname);
+    const showFooter = !['/tutor/tutorlogin', '/tutor/tutorregister', '/tutor/home','/tutor/chat-box'].some(path => location.pathname.startsWith(path));
     return (
         <>
             {showNavbar && <TutorNavbar />}

@@ -5,6 +5,7 @@ interface Chat extends Document {
   conversationId: string;
   participants: mongoose.Schema.Types.ObjectId[]; 
   messages: mongoose.Schema.Types.ObjectId[]; 
+  lastMessage:string
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,6 +32,10 @@ const chatSchema = new Schema<Chat>(
         default: [],
       },
     ],
+    lastMessage: {
+      type: String,
+      required:true
+    }
   },
   {
     timestamps: true, 

@@ -5,8 +5,8 @@ interface ORDER extends Document{
     studentId :mongoose.Schema.Types.ObjectId
     courseId:mongoose.Schema.Types.ObjectId 
     tutorId:mongoose.Schema.Types.ObjectId
-    courseName: mongoose.Schema.Types.ObjectId
     status:string
+    paymentMethod: string; 
     amount:number
     createdAt:Date
     updatedAt:Date
@@ -27,14 +27,7 @@ const orderSchema = new Schema<ORDER>({
         required:true,
         ref:"courseModel",
     },
-    courseName:
-        {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"courseModel",
-        requied:true
-
-    },
-
+   
     tutorId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
@@ -49,6 +42,11 @@ const orderSchema = new Schema<ORDER>({
         type:String, 
         default:"success"
 
+    },
+    paymentMethod: {
+        type: String,
+        enum: ['Stripe', 'Wallet'], 
+        required: true,
     },
     createdAt:{
         type:Date,

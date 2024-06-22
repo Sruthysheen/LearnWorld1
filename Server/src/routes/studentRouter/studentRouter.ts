@@ -25,7 +25,13 @@ import{studentRegistration,
        enrolledCourses,
        fetchCategory,
        getTutorList,
-       getTutorDetails
+       getTutorDetails,
+       cancelCourse,
+       getBalance,
+       getTransactions,
+       updateWalletBalance,
+       postReview,
+       getRating
     } from "../../controller/studentController/studentController";
 import { isAuth } from "../../middleware/authMiddleware";
 import upload from "../../multer/upload";
@@ -60,6 +66,12 @@ studentRouter.get('/enrolled-course/:studentId',isAuth,enrolledCourses)
 studentRouter.get('/get-category/:categoryId',isAuth,fetchCategory)
 studentRouter.get('/get-tutor/:id',isAuth,getTutorDetails)
 studentRouter.get('/tutor-list',isAuth,getTutorList)
+studentRouter.post('/cancel-course',isAuth,cancelCourse)
+studentRouter.get('/wallet-balance/:studentId',isAuth,getBalance)
+studentRouter.get('/wallet-transactions/:studentId',isAuth,getTransactions)
+studentRouter.post('/update-balance',isAuth,updateWalletBalance)
+studentRouter.post('/post-review',isAuth,postReview)
+studentRouter.get('/get-rating/:courseId/:studentId',isAuth,getRating)
 studentRouter.post("/logout",studentLogout);
 studentRouter.get('/test',isAuth,(req,res)=>{
     res.status(200).json({message:"Hello"})

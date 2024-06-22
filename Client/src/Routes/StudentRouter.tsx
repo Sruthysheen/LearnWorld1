@@ -23,12 +23,14 @@ import SingleEnrolledCoursePage from '../Pages/Student/SingleEnrolledCoursePage'
 import StudentChatPage from '../Pages/Student/StudentChatPage';
 import TutorPage from '../Pages/Student/TutorPage';
 import EnrollmentHistory from '../Components/Student/EnrolledCourse/EnrollmentHistory';
+import EnrollmentHistoryPage from '../Pages/Student/EnrollmentHistoryPage';
+import StudentWalletPage from '../Pages/Student/StudentWalletPage';
 
 
 const StudentRouter = () => {
   const location = useLocation();
   const showNavbar = !['/login','/register','/otp','/'].includes(location.pathname);
-  const showFooter = !['/login','/register','/otp','/'].includes(location.pathname);
+  const showFooter = !['/login','/register','/otp','/','/student-chat'].some(path => location.pathname.startsWith(path));
   return (
     <>
      {showNavbar && <Navbar/>} 
@@ -57,7 +59,8 @@ const StudentRouter = () => {
         <Route path="/enrolled-course" element={<EnrolledCoursePage/>} />
         <Route path="/tutor-list" element={<TutorPage/>} />
         <Route path="/enrolled-singlecourse" element={<SingleEnrolledCoursePage/>} />
-        <Route path="/enrollment-history" element = {<EnrollmentHistory/>} />
+        <Route path="/enrollment-history" element = {<EnrollmentHistoryPage/>} />
+        <Route path="/wallet" element = {<StudentWalletPage/>} />
         <Route path="/student-chat/:tutorId/:chatId" element={<StudentChatPage/>} />
         
 

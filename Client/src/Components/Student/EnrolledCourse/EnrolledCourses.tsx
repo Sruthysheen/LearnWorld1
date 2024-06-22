@@ -5,6 +5,8 @@ import { Course, clearCourseDetails, setSingleCourseDetails } from "../../../Sli
 import { toast } from "sonner";
 import { enrolledCourse } from "../../../Utils/config/axios.GetMethods";
 import LoadingSpinner from "../../Common/LoadingSpinner";
+import Swal from 'sweetalert2';
+import { cancelEnrolledCourse } from "../../../Utils/config/axios.PostMethods";
 
 function EnrolledCourses() {
     const dispatch = useDispatch();
@@ -68,6 +70,37 @@ function EnrolledCourses() {
         }
     };
 
+
+    const handleCancel = async (course: Course) => {
+        try {
+            const result = await Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#0284c7',
+                cancelButtonColor: '#f472b6',
+                confirmButtonText: 'Yes, confirm!'
+            });
+
+            if (result.isConfirmed) {
+                await cancelEnrolledCourse(course.courseId._id, studentId);
+                setEnrolledCourses(prevCourses => prevCourses.filter(prevCourse => prevCourse._id !== course._id)); 
+                Swal.fire(
+                    'Deleted!',
+                    'Your course enrollment has been cancelled.',
+                    'success'
+                );
+            }
+        } catch (error) {
+            console.error("Error deleting course:", error);
+            toast.error("Failed to cancel course");
+        }
+    };
+
+
+
+
     if (loading) {
         return <LoadingSpinner />; // Display a spinner while loading
     }
@@ -104,7 +137,13 @@ function EnrolledCourses() {
                                     onClick={() => handleSingleEnrollCourse(course)}
                                     className="inline-flex items-center px-6 py-1 text-sm font-medium text-center text-white bg-sky-600 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >
-                                    View Course
+                                    View
+                                </button>
+                                <button
+                                    onClick={() => handleCancel(course)} // Call handleCancel with course ID
+                                    className="inline-flex items-center px-4 py-1 text-sm font-medium text-center text-white bg-sky-600 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-2"
+                                >
+                                    Cancel
                                 </button>
                             </div>
                         </div>

@@ -4,6 +4,7 @@ export interface Course {
   category:string,
   _id: string;
   courseId: {
+    _id:string;
     courseName: string;
     courseDescription: string;
     photo: string[];

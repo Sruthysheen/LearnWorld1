@@ -102,6 +102,33 @@ export const getAllCatagoryStudent=async()=>{
   
 }
 
+
+export const getBalance = async(studentId:string)=>{
+  const config: AxiosRequestConfig = {
+    method:"GET",
+    url: `/student/wallet-balance/${studentId}`
+  }
+  return await axiosInstance(config);
+}
+
+
+export const getTransactions = async(studentId:string)=>{
+  const config: AxiosRequestConfig = {
+    method:"GET",
+    url: `/student/wallet-transactions/${studentId}`
+  }
+  return await axiosInstance(config);
+}
+
+
+export const getRating = async(courseId:string,studentId:string)=>{
+  const config: AxiosRequestConfig = {
+    method: "GET",
+    url: `/student/get-rating/${courseId}/${studentId}`,
+  }
+  return await axiosInstance(config)
+}
+
   //tutor------------------------------------------------------------------------------------
 
   export const resendOtpTutor = async() => {

@@ -6,6 +6,10 @@ interface Message extends Document {
   senderId: mongoose.Schema.Types.ObjectId;
   receiverId: mongoose.Schema.Types.ObjectId;
   message: string;
+  media?: {
+    url: string;
+    type: "image" | "video";
+  };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -33,6 +37,15 @@ const messageSchema = new mongoose.Schema<Message>({
     trim: true,
     required: true,
   },
+  media: {
+    url: {
+      type: String,
+    },
+    type: {
+      type: String,
+      enum: ["image", "video",""],
+    }
+  }
 }, {
   timestamps: true, 
 });

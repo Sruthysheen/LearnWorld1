@@ -168,6 +168,54 @@ export const sendMessageFrom = async(tutorId: string, messages: string) =>{
 };
   return await axiosInstance(config)
 };
+
+
+
+export const cancelEnrolledCourse = async(courseId:string,studentId:string)=>{
+  const config: AxiosRequestConfig = {
+    method: "POST",
+    url: `/student/cancel-course`,
+    data:{
+      courseId:courseId,
+      studentId:studentId,
+
+    }
+  }
+  return await axiosInstance(config)
+}
+
+
+
+export const updateWalletBalance = async(studentId: string, amount: number, cartItems: any[])=>{
+  const config: AxiosRequestConfig = {
+    method: "POST",
+    url: `/student/update-balance`,
+    data:{
+      studentId:studentId,
+      amount:amount,
+      cartItems:cartItems
+    }
+  }
+  return await axiosInstance(config)
+}
+
+
+export const postReview = async(review:string,rating:number,courseId:string,studentId:string)=>{
+  const config: AxiosRequestConfig = {
+    method: "POST",
+    url: `/student/post-review`,
+    data:{
+      review:review,
+      rating:rating,
+      courseId:courseId,
+      studentId:studentId,
+    }
+  }
+  return await axiosInstance(config)
+}
+
+
+
 //admin------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 
