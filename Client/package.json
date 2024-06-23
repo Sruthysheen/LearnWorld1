@@ -24,6 +24,7 @@
     "@types/react-redux": "^7.1.33",
     "@types/react-toastify": "^4.1.0",
     "@types/use-sync-external-store": "^0.0.6",
+    "@zegocloud/zego-uikit-prebuilt": "^2.6.0",
     "apexcharts": "^3.48.0",
     "axios": "^1.6.7",
     "date-fns": "^3.6.0",

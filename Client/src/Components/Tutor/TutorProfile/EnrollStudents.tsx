@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { enrolledStudents } from "../../../Utils/config/axios.GetMethods";
+import VideoCall from "../VideoCall/VideoCall";
 
 interface studentDetails {
     studentId: any;
@@ -19,7 +20,7 @@ interface studentDetails {
 
 function EnrollStudents() {
 
-    const [userDetails, setUserDetails] = useState<studentDetails[]>([]);
+  const [userDetails, setUserDetails] = useState<studentDetails[]>([]);
   const [studentsDetails, setStudentDetails] = useState<studentDetails[]>([]);
   const combinedDetails = [...userDetails, ...studentsDetails];
 
@@ -46,6 +47,10 @@ function EnrollStudents() {
     }
     fetchStudents();
   },[])
+
+  // const handleVideoCall = () => {
+  //   Navigate(`/room/${tutorId}`);
+  // };
 
   return (
     <div>
@@ -127,6 +132,25 @@ function EnrollStudents() {
         </svg>
       </div>
     </Link>
+    <button
+            // onClick={handleVideoCall}
+            className="z-20 text-white flex flex-col shrink-0 grow-0 justify-around 
+              fixed bottom-0 right-20 rounded-lg
+              mr-1 mb-5 lg:mr-5 lg:mb-5 xl:mr-10 xl:mb-10"
+          >
+            <div className="p-3 rounded-full border-4 border-white bg-sky-600">
+              <svg
+                className="w-10 h-10 lg:w-12 lg:h-12 xl:w-16 xl:h-16"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 10.5V7c0-.8-.6-1.5-1.5-1.5h-11C3.6 5.5 3 6.2 3 7v10c0 .8.6 1.5 1.5 1.5h11c.8 0 1.5-.7 1.5-1.5v-3.5l4 4v-11l-4 4z"
+                />
+              </svg>
+            </div>
+          </button>
   </div>
   </div>
 </div>

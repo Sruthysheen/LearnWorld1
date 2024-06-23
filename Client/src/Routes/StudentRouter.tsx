@@ -29,8 +29,9 @@ import StudentWalletPage from '../Pages/Student/StudentWalletPage';
 
 const StudentRouter = () => {
   const location = useLocation();
+  const excludeFooterPaths = ['/login', '/register', '/otp', '/student-chat'];
   const showNavbar = !['/login','/register','/otp','/'].includes(location.pathname);
-  const showFooter = !['/login','/register','/otp','/','/student-chat'].some(path => location.pathname.startsWith(path));
+  const showFooter =!excludeFooterPaths.some(path => location.pathname.startsWith(path));
   return (
     <>
      {showNavbar && <Navbar/>} 

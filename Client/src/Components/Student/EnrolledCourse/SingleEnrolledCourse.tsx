@@ -247,10 +247,10 @@ const navigate =useNavigate()
         <>
        
         {/* <Link to={`/student-chat/${courseDetails.tutorId._id}`}> */}
-                <button className="fixed bottom-5 right-5 bg-sky-500 text-white rounded-full p-4 shadow-lg hover:bg-sky-600 focus:outline-none" onClick={handleConversation}>
+                <button className="fixed bottom-5 right-5 bg-green-500 text-white rounded-full p-4 shadow-lg hover:bg-sky-600 focus:outline-none" onClick={handleConversation}>
                     <FontAwesomeIcon icon={faCommentDots} size="lg" />
                 </button>
-                <button className="fixed bottom-20 right-5 bg-green-500 text-white rounded-full p-4 shadow-lg hover:bg-green-600 focus:outline-none" onClick={handleVideoCall}>
+                <button className="fixed bottom-20 right-5 bg-sky-500 text-white rounded-full p-4 shadow-lg hover:bg-green-600 focus:outline-none" onClick={handleVideoCall}>
                     <FontAwesomeIcon icon={faVideo} size="lg" />
                 </button>
             {/* </Link> */}

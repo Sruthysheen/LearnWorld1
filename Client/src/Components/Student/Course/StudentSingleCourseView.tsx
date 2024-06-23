@@ -4,6 +4,41 @@ import { format, parseISO } from 'date-fns';
 import { Link } from "react-router-dom";
 import { addToCart, addToWishlist } from "../../../Utils/config/axios.PostMethods";
 import { toast } from "sonner";
+import { getAllRatings } from "../../../Utils/config/axios.GetMethods";
+
+
+interface RatingDocument {
+  courseId: string | undefined;
+  rating: number;
+  studentId: {
+    photo: string;
+    studentname: string;
+  };
+  review: string;
+  createdAt: Date;
+}
+
+
+const renderStarRating = (rating: number) => {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    if (i <= rating) {
+      stars.push(
+        <span key={i} className="text-yellow-500">
+          ★
+        </span>
+      );
+    } else {
+      stars.push(
+        <span key={i} className="text-gray-400">
+          ★
+        </span>
+      );
+    }
+  }
+  return stars;
+};
+
 
 
 
@@ -18,6 +53,7 @@ function StudentSingleCourseView() {
 
   const courseId = courseDetails._id;
   const [currentVideo, setCurrentVideo] = useState("");
+  const [ratings, setRatings] = useState<RatingDocument[]>([]);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlayVideo = (videoUrl: string) => {
@@ -75,6 +111,31 @@ function StudentSingleCourseView() {
     }
   }
 
+
+  const fetchAllRatings = async () => {
+    try {
+      const response = await getAllRatings(courseId);
+      if (response.data) {
+        setRatings(response.data.allRatings);
+        toast.success("Student ratings fetched successfully");
+      } else {
+        toast.error("There are no ratings for this course");
+      }
+    } catch (error) {
+      console.error("Failed to fetch ratings:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (courseId) {
+      fetchAllRatings();
+    }
+  }, [courseId]);
+
+  useEffect(() => {
+    console.log(courseDetails,"????????????????");
+    
+  }, []);
 
 
   return (
@@ -145,6 +206,26 @@ function StudentSingleCourseView() {
           <p className="text-base md:text-md mb-4 text-sky-800 flex justify-center font-bold mt-4">Explore courses from experienced, real-world experts.</p>
           <p className="text-base md:text-md mb-4 text-sky-800 flex justify-center font-bold mt-4">Tutor : {courseDetails.tutor?.tutorname} </p>
         </div>
+      </div>
+      <div className="mt-6 px-5 md:px-10">
+        <h2 className="text-2xl font-bold mb-4 text-sky-600">Student Ratings</h2>
+        {ratings.length > 0 ? (
+          <ul className="space-y-4">
+            {ratings.map((rating, index) => (
+              <li key={index} className="bg-white p-4 rounded-lg shadow-md flex items-start space-x-4">
+                <img src={rating.studentId.photo} alt={rating.studentId.studentname} className="w-16 h-16 rounded-full object-cover" />
+                <div>
+                  <h3 className="text-lg font-bold text-sky-600">{rating.studentId.studentname}</h3>
+                  <p className="text-sm text-gray-600">{rating.review}</p>
+                  <p className="text-sm">{renderStarRating(rating.rating)}</p>
+                  <p className="text-xs text-gray-500">Reviewed on {format(parseISO(rating.createdAt.toString()), 'MMMM d, yyyy')}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-600">No ratings available for this course.</p>
+        )}
       </div>
     </>
   );

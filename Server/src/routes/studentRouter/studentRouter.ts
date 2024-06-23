@@ -31,7 +31,8 @@ import{studentRegistration,
        getTransactions,
        updateWalletBalance,
        postReview,
-       getRating
+       getRating,
+       getAllRatings
     } from "../../controller/studentController/studentController";
 import { isAuth } from "../../middleware/authMiddleware";
 import upload from "../../multer/upload";
@@ -72,6 +73,7 @@ studentRouter.get('/wallet-transactions/:studentId',isAuth,getTransactions)
 studentRouter.post('/update-balance',isAuth,updateWalletBalance)
 studentRouter.post('/post-review',isAuth,postReview)
 studentRouter.get('/get-rating/:courseId/:studentId',isAuth,getRating)
+studentRouter.get('/all-ratings/:courseId',isAuth,getAllRatings)
 studentRouter.post("/logout",studentLogout);
 studentRouter.get('/test',isAuth,(req,res)=>{
     res.status(200).json({message:"Hello"})

@@ -129,7 +129,18 @@ export const getRating = async(courseId:string,studentId:string)=>{
   return await axiosInstance(config)
 }
 
-  //tutor------------------------------------------------------------------------------------
+
+export const getAllRatings = async(courseId:string)=>{
+  const config: AxiosRequestConfig = {
+    method: "GET",
+    url: `/student/all-ratings/${courseId}`
+  }
+  return await axiosInstance(config)
+}
+
+
+
+//tutor------------------------------------------------------------------------------------
 
   export const resendOtpTutor = async() => {
     try {

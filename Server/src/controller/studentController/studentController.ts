@@ -888,6 +888,29 @@ console.log(stripeSecretKey, "Keyy");
     }
   };
   
+
+  const getAllRatings = async (req: Request, res: Response) => {
+    try {
+      const { courseId } = req.params;
+      
+      if (!courseId) {
+        return res.status(400).json({ message: "Course ID is required" });
+      }
+  
+      const allRatings = await ratingModel.find({ courseId }).populate('studentId');
+  
+      if (allRatings.length > 0) {
+        return res.status(200).json({ message: "Ratings are fetched", allRatings });
+      } else {
+        return res.status(404).json({ message: "There are no ratings for this course" });
+      }
+    } catch (error) {
+      console.error("Error while fetching ratings:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  };
+  
+  
   
 
 
@@ -935,5 +958,6 @@ export {
     getTransactions,
     updateWalletBalance,
     postReview,
-    getRating
+    getRating,
+    getAllRatings
 }
