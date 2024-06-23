@@ -11,6 +11,7 @@ export interface Course {
     courseFee: number;
     courseDuration: string;
     category: string;
+    
   }
   courseName: string;
   courseDescription: string;
@@ -26,6 +27,7 @@ phone: string
 
       tutorName: string,
 lessons:string[]
+createdAt:Date;
 }
 
 export interface Lesson {

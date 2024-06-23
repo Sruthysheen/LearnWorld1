@@ -2,9 +2,43 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { format, parseISO } from 'date-fns';
+import { toast } from "sonner";
+import { deleteLesson } from "../../../Utils/config/axios.DeleteMethod";
+import { getSingleCourse } from "../../../Utils/config/axios.GetMethods";
+
+
+interface Category {
+  categoryname: string;
+}
+
+interface Lesson {
+  _id: string;
+  title: string;
+  description: string;
+  video: string;
+}
+
+interface CourseDetail {
+  _id: string;
+  courseName: string;
+  courseDescription: string;
+  photo: string[];
+  category: Category;
+  courseFee: number;
+  courseDuration: string;
+  updatedAt: string;
+  lessons: Lesson[];
+}
 
 function ViewSingleCourse() {
+  const [singleInfo,setSingleInfo] = useState<CourseDetail | null>(null)
   const { courseDetails } = useSelector((state:any) => state.course);
+  console.log(courseDetails,"]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
+  
+  const courseId = courseDetails._id;
+ 
+  
+  
 
   const [currentVideo, setCurrentVideo] = useState("");
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -26,6 +60,46 @@ function ViewSingleCourse() {
     }
   }, [currentVideo]);
 
+
+  const fetchData = async()=>{
+    try {
+      const response = await getSingleCourse(courseId);
+      console.log(response,"....................................");
+      
+      if(response.data){
+        const data = response.data.courseDetail;
+        setSingleInfo(data)
+      } 
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      toast.error("Error fetching data. Please try again later.");
+    }
+  }
+ 
+  
+  useEffect(()=>{
+    fetchData();
+  },[courseId])
+
+
+  const handleDelete = async (lessonId:string) => {
+    try {
+      const response = await deleteLesson(courseId, lessonId);
+      if (response.status) {
+        toast.success("Lesson deleted successfully");
+        if (singleInfo) {
+          const updatedLessons = singleInfo.lessons.filter(lesson => lesson._id !== lessonId);
+          setSingleInfo({ ...singleInfo, lessons: updatedLessons });
+        }
+      } else {
+        toast.error("Failed to delete lesson. Please try again.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while deleting the lesson.");
+      console.error("Error deleting lesson:", error);
+    }
+  };
+  
   return (
     <>
       
@@ -69,29 +143,47 @@ function ViewSingleCourse() {
               <p className="mt-4">Last Updated: {format(parseISO(courseDetails.updatedAt), 'MMMM d, yyyy')}</p>
             </div>
             <div className="bg-white dark:bg-gray-800 flex justify-end mt-4 mr-4">
-        <Link
-          to="/tutor/editcourse"
-          className="block px-5 py-2 font-semibold text-center text-white transition-colors duration-200 transform bg-sky-600 rounded-md hover:bg-blue-400"
-        >
-          Edit Course
-        </Link>
+            <div className="bg-white dark:bg-gray-800 flex justify-end mt-4 mr-4">
+  <Link
+    to="/tutor/editcourse"
+    className="block px-5 py-2 font-semibold text-center text-white transition-colors duration-200 transform bg-sky-600 rounded-md hover:bg-blue-400 mr-2"
+  >
+    Edit Course
+  </Link>
+  <Link
+    to="/tutor/view-quiz" 
+    className="block px-5 py-2 font-semibold text-center text-white transition-colors duration-200 transform bg-sky-600 rounded-md hover:bg-blue-400 mr-2"
+  >
+    View Quiz
+  </Link>
+  <Link
+    to="/tutor/add-quiz" 
+    className="block px-5 py-2 font-semibold text-center text-white transition-colors duration-200 transform bg-sky-600 rounded-md hover:bg-blue-400"
+  >
+    Add Quiz
+  </Link>
+
+</div>
       </div>
             {/* Lessons Section */}
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-2 text-sky-600">Lessons:</h3>
               <ul>
                 {courseDetails.lessons.map((lesson:any, index:number) => (
-                  <li key={index} className="mb-2 p-3 border border-sky-200 rounded-md">
+                  <li key={lesson._id} className="mb-2 p-3 border border-sky-200 rounded-md">
                     <div className="grid grid-cols-3 gap-4">
                       <div className="text-sky-700"> {lesson.title}</div>
                       <div className="text-sky-700">{lesson.description}</div>
-                      <div className="flex justify-center items-center gap-4">
-                        <button onClick={() => handlePlayVideo(lesson.video)} className="px-3 py-1 bg-sky-500 text-white rounded-md">
+                      <div className="flex justify-center items-center gap-2">
+                        <button onClick={() => handlePlayVideo(lesson.video)} className="px-2 py-1 bg-sky-500 text-white rounded-md">
                           Play
                         </button>
-                        <Link to={`/tutor/editlesson/${lesson._id}`} className="px-3 py-1 bg-sky-500 text-white rounded-md">
+                        <Link to={`/tutor/editlesson/${lesson._id}`} className="px-2 py-1 bg-sky-500 text-white rounded-md">
                           Edit
                         </Link>
+                        <button onClick={()=>handleDelete(lesson._id)} className="px-2 py-1 bg-sky-500 text-white rounded-md">
+                          Delete
+                        </button>
                       </div>
                     </div>
                   </li>

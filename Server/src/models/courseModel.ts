@@ -1,5 +1,9 @@
 import mongoose ,{Schema,Document,Model,model} from "mongoose";
 
+export interface LessonProgress {
+    lessonId: mongoose.Schema.Types.ObjectId;
+    isCompleted: boolean;
+}
 export interface Course extends Document {
     courseName:string,
     courseDuration :string
@@ -16,7 +20,32 @@ export interface Course extends Document {
     createdAt:Date,
     updatedAt:Date,
     video:string,
+    studentsProgress: [{
+        studentId: mongoose.Schema.Types.ObjectId,
+        progress: LessonProgress[],
+    }],
 }
+
+const LessonProgressSchema = new Schema<LessonProgress>({
+    lessonId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    isCompleted: {
+        type: Boolean,
+        default: false
+    }
+});
+
+const StudentsProgressSchema = new Schema({
+    studentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Student',
+        required: true
+    },
+    progress: [LessonProgressSchema]
+});
+
 const courSchema =new Schema<Course>({
     courseName:{
         type:String,
@@ -86,7 +115,10 @@ const courSchema =new Schema<Course>({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
       },
-      },],     
+      },],  
+
+    studentsProgress: [StudentsProgressSchema],
+
     createdAt:{
         type:Date,
         default:Date.now
@@ -98,7 +130,6 @@ const courSchema =new Schema<Course>({
 
     
 })
-
 
 
 const Course:Model<Course> = mongoose.model<Course>("courseModel",courSchema)

@@ -637,6 +637,48 @@ const studentProfile = async (req: Request, res: Response) => {
 };
 
 
+const getSingleCourse = async (req:Request, res:Response) => {
+  try {
+    const { courseId } = req.params;
+    console.log(courseId, "///////////////////////////");
+    
+    const courseDetail = await Course.findById(courseId);
+    
+    if (courseDetail) {
+      return res.json({ status: true, courseDetail });
+    } else {
+      return res.status(404).json({ status: false, message: 'Course not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
+const deleteLesson = async (req: Request, res: Response) => {
+  try {
+    const { courseId, lessonId } = req.params;
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ status: false, message: "Course not found" });
+    }
+    const lessonIndex = course.lessons.findIndex((lesson) => (lesson as any)._id.toString() === String(lessonId));
+    if (lessonIndex === -1) {
+      return res.status(404).json({ status: false, message: "Lesson not found" });
+    }
+    course.lessons.splice(lessonIndex, 1);
+    await course.save();
+
+    return res.status(200).json({ status: true, message: "Lesson deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting lesson:", error);
+    return res.status(500).json({ status: false, message: "An error occurred while deleting the lesson" });
+  }
+};
+
+
+
 const tutorLogout = async (req:Request, res:Response) => {
   try {
     res.cookie("jwt", "", {
@@ -674,5 +716,7 @@ export {
   refreshTokenCreation,
   GetAllCategory,
   enrolledStudents,
-  studentProfile
+  studentProfile,
+  getSingleCourse,
+  deleteLesson
 };

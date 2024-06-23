@@ -140,6 +140,15 @@ export const getAllRatings = async(courseId:string)=>{
 
 
 
+export const fetchQuizzesByCourse = async(courseId:string)=>{
+  const config: AxiosRequestConfig = {
+    method: "GET",
+    url: `/student/student-view-quiz/${courseId}`
+  }
+  return await axiosInstance(config)
+}
+
+
 //tutor------------------------------------------------------------------------------------
 
   export const resendOtpTutor = async() => {
@@ -265,7 +274,24 @@ export const getAllRatings = async(courseId:string)=>{
     };
     return await axiosInstance(config);
   };
- 
+
+
+  export const getSingleCourse = async (courseId:string) => {
+    const config: AxiosRequestConfig = {
+      method: "GET",
+      url: `/tutor/single-course/${courseId}`,
+    };
+    return await axiosInstance(config);
+  };
+
+  export const fetchQuizzesByCourseAndTutor = async (courseId: string, tutorId: string) => {
+    const config: AxiosRequestConfig = {
+      method: 'GET',
+      url: `/tutor/view-quiz/${courseId}/${tutorId}`
+    };
+    return await axiosInstance(config);
+  };
+
 
 
   //Admin----------------------------------------------------------------------------------

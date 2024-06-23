@@ -16,6 +16,7 @@ import jwt from "jsonwebtoken";
 import Tutor from '../../models/tutorModel';
 import Wallet from '../../models/walletModel';
 import ratingModel from '../../models/ratingModel';
+import Question from '../../models/questionModel';
 
 
 
@@ -910,6 +911,17 @@ console.log(stripeSecretKey, "Keyy");
     }
   };
   
+
+  const fetchQuizzesByCourse = async(req:Request,res:Response)=>{
+    try {
+      const {courseId} = req.params;
+      const questions = await Question.find({ courseId })
+        return res.status(200).json(questions);
+    } catch (error:any) {
+      console.error("Error while fetching ratings:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  }
   
   
 
@@ -959,5 +971,6 @@ export {
     updateWalletBalance,
     postReview,
     getRating,
-    getAllRatings
+    getAllRatings,
+    fetchQuizzesByCourse
 }

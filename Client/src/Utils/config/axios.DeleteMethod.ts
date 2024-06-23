@@ -28,3 +28,14 @@ export const deleteWishlistItem = async(wishlistItemId:string) =>{
   return await axiosInstance(config);
 }
 
+
+
+export const deleteLesson = async (courseId:string,lessonId:string)=>{
+  const config: AxiosRequestConfig = {
+    method: "DELETE",
+    url: `/tutor/delete-lesson/${courseId}/${lessonId}`
+  };
+  return await axiosInstance(config)
+}
+
+

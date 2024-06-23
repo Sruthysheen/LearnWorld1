@@ -59,6 +59,7 @@ function EnrolledCourses() {
         }
     }, [studentId]);
 
+    
     const handleSingleEnrollCourse = (course: Course) => {
         dispatch(clearCourseDetails());
         dispatch(setSingleCourseDetails(course));
@@ -72,6 +73,19 @@ function EnrolledCourses() {
 
 
     const handleCancel = async (course: Course) => {
+        const enrollmentTime = new Date(course.createdAt);
+        const currentTime = new Date();
+        const timeDifference = currentTime.getTime() - enrollmentTime.getTime();
+        const hoursDifference = timeDifference / (1000 * 60 * 60);
+
+        if (hoursDifference > 24) {
+            Swal.fire({
+                html: '<span style="color: #0284c7;">The cancellation period has expired. You can only cancel the course within 24 hours of purchase.</span>',
+                confirmButtonColor: '#0284c7'
+            });
+            return;
+        }
+
         try {
             const result = await Swal.fire({
                 title: 'Are you sure?',
