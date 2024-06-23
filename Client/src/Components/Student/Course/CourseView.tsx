@@ -1,9 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAllCatagoryStudent, getAllStudentCourses } from '../../../Utils/config/axios.GetMethods';
+import { getAllCatagoryStudent, getAllStudentCourses, getAverageRatings } from '../../../Utils/config/axios.GetMethods';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCourseDetails, setSingleCourseDetails } from '../../../Slices/tutorSlice/courseSlice';
+
+
+
+const renderStarRating = (rating: number) => {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    if (i <= rating) {
+      stars.push(
+        <span key={i} className="text-yellow-500">
+          ★
+        </span>
+      );
+    } else {
+      stars.push(
+        <span key={i} className="text-gray-400">
+          ★
+        </span>
+      );
+    }
+  }
+  return stars;
+};
+
 
 interface Course {
   _id: string;
@@ -16,12 +39,15 @@ interface Course {
   tutor: string;
   createdAt: Date;
   updatedAt: Date;
+  averageRating?: number;
+  ratingCount?: number;
 }
 
 function CourseView() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [courseInfo, setCourseInfo] = useState<Course[]>([]);
+  const [averageRatings, setAverageRatings] = useState<any>({});
   const { student } = useSelector((state: any) => state.student);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [search, setSearch] = useState<string>("");
@@ -72,6 +98,28 @@ function CourseView() {
       toast.error("Error fetching data. Please try again later.");
     }
   };
+
+
+  const fetchAverageRatings = async () => {
+    try {
+      const response: any = await getAverageRatings();
+      if (response?.data) {
+        const ratings = response.data.averageRatings.reduce((acc: any, rating: any) => {
+          acc[rating._id] = { averageRating: rating.averageRating, ratingCount: rating.ratingCount };
+          return acc;
+        }, {});
+        setAverageRatings(ratings);
+      }
+    } catch (error) {
+      console.error("Error fetching average ratings:", error);
+      toast.error("Error fetching average ratings. Please try again later.");
+    }
+  };
+
+  useEffect(()=>{
+    fetchAverageRatings()
+  },[])
+  
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -163,9 +211,15 @@ function CourseView() {
                   {course.courseName}
                 </h5>
               </Link>
-              <h3 className="mb-3 font-normal text-sky-600 dark:text-gray-400">
+              <h3 className="font-normal text-sky-600 dark:text-gray-400">
                 ₹{course.courseFee}
               </h3>
+              <div className="flex items-center mb-2">
+                {renderStarRating(averageRatings[course._id]?.averageRating || 0)}
+                <span className="ml-2 text-gray-600 dark:text-gray-400 text-xs">
+                  ({averageRatings[course._id]?.ratingCount || 0})
+                </span>
+              </div>
               <div className="text-start">
                 <Link
                   to="/singlecourse"

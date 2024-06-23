@@ -923,6 +923,32 @@ console.log(stripeSecretKey, "Keyy");
     }
   }
   
+
+
+  const getAverageRatings = async (req: Request, res: Response) => {
+    try {
+      const averageRatings = await ratingModel.aggregate([
+        {
+          $group: {
+            _id: "$courseId",
+            averageRating: { $avg: "$rating" },
+            ratingCount: { $sum: 1 }
+          }
+        }
+      ]);
+  
+      if (averageRatings.length > 0) {
+        return res.status(200).json({ averageRatings });
+      } else {
+        return res.status(404).json({ message: "No ratings found" });
+      }
+    } catch (error) {
+      console.error("Error fetching average ratings:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  };
+  
+  
   
 
 
@@ -972,5 +998,6 @@ export {
     postReview,
     getRating,
     getAllRatings,
-    fetchQuizzesByCourse
+    fetchQuizzesByCourse,
+    getAverageRatings
 }

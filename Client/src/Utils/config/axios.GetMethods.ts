@@ -149,6 +149,15 @@ export const fetchQuizzesByCourse = async(courseId:string)=>{
 }
 
 
+export const getAverageRatings = async()=>{
+  const config: AxiosRequestConfig = {
+    method: "GET",
+    url: `/student/get-average-rating`
+  }
+  return await axiosInstance(config)
+}
+
+
 //tutor------------------------------------------------------------------------------------
 
   export const resendOtpTutor = async() => {

@@ -46,7 +46,7 @@ const StudentRouter = () => {
         <Route path = "/forgototp" element = {<ForgotOtpPage/>} />
         <Route path = "/newpassword" element = {<NewPasswordPage/>} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/getcourses?s" element={<CourseViewPage/>} />
+        <Route path="/getcourses" element={<CourseViewPage/>} />
 
 
         <Route element={<PrivatePage isStudent={true} />}>
