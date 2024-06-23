@@ -48,7 +48,7 @@ const TutorRouter = () => {
                     <Route path="/editlesson/:lessonId" element={<EditLessonPage/>} />
                     <Route path="/enrolled-students" element={<StudentsPage/>} />
                     <Route path="/view-quiz" element={<ViewQuizPage/>} />
-                    {/* <Route path="/add-quiz" element={<AddQuizPage/>} /> */}
+                    <Route path="/add-quiz" element={<AddQuizPage/>} />
                     <Route path="/chat-box/:chatId" element={<ChatPage  />} />
                 </Route>
             </Routes> 

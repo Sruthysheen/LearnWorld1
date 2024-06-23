@@ -1,6 +1,7 @@
 import { Axios, AxiosRequestConfig } from "axios";
 import {loginStudent, registerStudent, loginTutor, registerTutor, loginAdmin, AdminCategoryData} from "../api/types";
 import { apiRequest, axiosInstance } from "./axios.config";
+import { QuestionData } from "../../Components/Student/EnrolledCourse/StudentViewQuiz";
 
 
 
@@ -474,10 +475,19 @@ export const editLesson = async(formData:FormData,lessonId:string)=>{
 
 
 
+
+export const postQuiz = async (quizData: QuestionData[]) => {
+  const config: AxiosRequestConfig = {
+    method: "POST",
+    url: `/tutor/add-quiz`,
+    data: quizData,
+  };
+  return await axiosInstance(config);
+};
+
+
+
 export const createConversation=async(data:any)=>{
-  
-
-
   const config: AxiosRequestConfig = {
     method: "POST",
     url: `/chat/createConversation`,

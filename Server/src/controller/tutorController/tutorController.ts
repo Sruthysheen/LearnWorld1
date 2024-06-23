@@ -11,6 +11,7 @@ import Category from "../../models/categoryModel";
 import jwt from "jsonwebtoken";
 import Student from "../../models/studentModel";
 import orderModel from "../../models/orderModel";
+import Question from "../../models/questionModel";
 
 const appState = {
   otp: null as null | number,
@@ -679,6 +680,52 @@ const deleteLesson = async (req: Request, res: Response) => {
 
 
 
+const postQuiz = async (req:Request, res:Response) => {
+  try {
+    const questions = req.body;
+
+    if (!Array.isArray(questions) || questions.length === 0) {
+      return res.status(400).json({ message: 'Invalid data format: Expected an array of questions.' });
+    }
+
+    const isValidOption = (option: any) => option && typeof option === 'object' && typeof option.optionText === 'string' && typeof option.isCorrect === 'boolean';
+    const isValidQuestion = (question: any) =>
+      question &&
+      typeof question === 'object' &&
+      typeof question.courseId === 'string' &&
+      typeof question.tutorId === 'string' &&
+      typeof question.questionText === 'string' &&
+      Array.isArray(question.options) &&
+      question.options.every(isValidOption);
+
+    if (!questions.every(isValidQuestion)) {
+      return res.status(400).json({ message: 'Invalid data format: Each question should have courseId, tutorId, questionText, and options.' });
+    }
+
+    const savedQuestions = await Question.insertMany(questions);
+    res.status(201).json(savedQuestions);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
+const getQuizzesByCourseAndTutor = async (req: Request, res: Response) => {
+  try {
+    const { courseId, tutorId } = req.params;
+
+    const quizzes = await Question.find({ courseId, tutorId });
+
+    return res.status(200).json(quizzes);
+  } catch (error: any) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
+
 const tutorLogout = async (req:Request, res:Response) => {
   try {
     res.cookie("jwt", "", {
@@ -718,5 +765,7 @@ export {
   enrolledStudents,
   studentProfile,
   getSingleCourse,
-  deleteLesson
+  deleteLesson,
+  postQuiz,
+  getQuizzesByCourseAndTutor
 };

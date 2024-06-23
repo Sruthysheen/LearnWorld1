@@ -1,7 +1,7 @@
 import express from "express";
 const tutorRouter = express.Router();
 
-import{tutorRegistration,tutorLogin,verifyOtp, tutorResendOtp, tutorOtpExpiry, tutorForgotPassword, verifyForgotOTP, tutorNewPassword, tutorGoogleAuthentication, editProfile, tutorLogout, addCourses, getAlltutorCourse, editCourse, addNewLesson, editLesson, refreshTokenCreation, GetAllCategory, enrolledStudents, studentProfile, getSingleCourse, deleteLesson} from "../../controller/tutorController/tutorController";
+import{tutorRegistration,tutorLogin,verifyOtp, tutorResendOtp, tutorOtpExpiry, tutorForgotPassword, verifyForgotOTP, tutorNewPassword, tutorGoogleAuthentication, editProfile, tutorLogout, addCourses, getAlltutorCourse, editCourse, addNewLesson, editLesson, refreshTokenCreation, GetAllCategory, enrolledStudents, studentProfile, getSingleCourse, deleteLesson, postQuiz, getQuizzesByCourseAndTutor} from "../../controller/tutorController/tutorController";
 
 import { protect } from "../../middleware/tutorMiddleware";
 import upload from "../../multer/upload"
@@ -31,6 +31,8 @@ tutorRouter.get("/get-category",protect,GetAllCategory)
 tutorRouter.get("/enrolled-students/:tutorId",protect,enrolledStudents)
 tutorRouter.get("/single-course/:courseId",protect,getSingleCourse)
 tutorRouter.get("/user-profile/:studentId",protect,studentProfile)
+tutorRouter.post("/add-quiz",protect,postQuiz)
+tutorRouter.get("/view-quiz/:courseId/:tutorId",protect,getQuizzesByCourseAndTutor)
 tutorRouter.delete("/delete-lesson/:courseId/:lessonId",protect,deleteLesson)
 tutorRouter.post("/refresh",refreshTokenCreation)
 

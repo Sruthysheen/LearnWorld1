@@ -66,7 +66,7 @@ const AddQuiz = () => {
   
     try {
     
-      const formattedQuestions = questions.map(({ questionText, options }) => ({
+      const formattedQuestions:any = questions.map(({ questionText, options }) => ({
         courseId: courseId,
         tutorId: tutorId,
         questionText,
