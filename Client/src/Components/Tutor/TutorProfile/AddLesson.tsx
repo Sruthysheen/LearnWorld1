@@ -23,6 +23,7 @@ function AddLesson() {
   interface Course {
     id: string;
     name: string;
+    category: string;
   }
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -58,10 +59,13 @@ function AddLesson() {
   const fetchCourse = async () => {
     try {
       const response: any = await getAllCourses(tutor._id);
+      console.log(response,"???????????????????????????///");
+      
       if (response?.data) {
         const courseData = response?.data?.courseDetails.map((course: any) => ({
           id: course._id,
           name: course.courseName,
+          category: course.category.categoryname
         }));
         console.log(courseData);
         
@@ -91,7 +95,8 @@ function AddLesson() {
       setLesson(previousDetails => ({
         ...previousDetails,
         courseId: selectedCourse?.id || '',
-        courseName: selectedCourse?.name || ''
+        courseName: selectedCourse?.name || '',
+        category: selectedCourse?.category || ''
       }));
     } else {
       setLesson(previousDetails => ({ ...previousDetails, [name]: value }));
@@ -180,19 +185,13 @@ function AddLesson() {
               >
                 Category Name
               </label>
-              <select
-                className="appearance-none block w-full bg-sky-200 text-sky-700 border border-sky-300 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-sky-300"
-                name="category"
-                value={lesson.category}
-                onChange={handleChange}
-              >
-                <option text-sky-500 value=""></option>
-    {category && category.map((category: string, index: number) => (
-      <option key={index} value={category}>
-        {category}
-      </option>
-    ))}
-              </select>
+              <input
+                    className="appearance-none block w-full bg-sky-200 text-sky-700 border border-sky-300 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-sky-300"
+                    type="text"
+                    name="category"
+                    value={lesson.category}
+                    readOnly
+                  />
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-6">

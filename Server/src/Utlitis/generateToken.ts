@@ -13,7 +13,7 @@ export const generateAccessToken = (student_id: string) => {
 
 export const generateRefreshToken = (student_id: string) => {
   const token = jwt.sign({ student_id }, process.env.JWT_REFRESHSECRET as string, {
-    expiresIn: "20s",
+    expiresIn: "50s",
   });
   console.log("token", token);
   

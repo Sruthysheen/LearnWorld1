@@ -32,6 +32,7 @@ interface CourseDetail {
 
 function ViewSingleCourse() {
   const [singleInfo,setSingleInfo] = useState<CourseDetail | null>(null)
+  const [lessons,setLessons] = useState<Lesson[]>([])
   const { courseDetails } = useSelector((state:any) => state.course);
   console.log(courseDetails,"]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
   
@@ -87,10 +88,13 @@ function ViewSingleCourse() {
       const response = await deleteLesson(courseId, lessonId);
       if (response.status) {
         toast.success("Lesson deleted successfully");
-        if (singleInfo) {
-          const updatedLessons = singleInfo.lessons.filter(lesson => lesson._id !== lessonId);
-          setSingleInfo({ ...singleInfo, lessons: updatedLessons });
-        }
+        setSingleInfo((prevInfo) => {
+          if (prevInfo) {
+            const updatedLessons = prevInfo.lessons.filter(lesson => lesson._id !== lessonId);
+            return { ...prevInfo, lessons: updatedLessons };
+          }
+          return prevInfo;
+        })
       } else {
         toast.error("Failed to delete lesson. Please try again.");
       }

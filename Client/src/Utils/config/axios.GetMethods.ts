@@ -284,6 +284,7 @@ export const fetchQuizzesByCourse = async(courseId:string)=>{
     return await axiosInstance(config);
   };
 
+  
   export const fetchQuizzesByCourseAndTutor = async (courseId: string, tutorId: string) => {
     const config: AxiosRequestConfig = {
       method: 'GET',
