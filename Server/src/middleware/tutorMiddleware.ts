@@ -10,7 +10,10 @@ interface TutorData {
     _id: string;
     tutorname: string;
     tutor: any | null;
+    isBlocked?: boolean; 
 }
+
+
 
 declare global {
     namespace Express {
@@ -33,10 +36,14 @@ const protect = asyncHandler(async (req: Request, res: Response, next: NextFunct
             
             const tutorId: string = verifiedToken.student_id; 
 
-            const tutor: Document | null = await Tutor.findById(tutorId).select("-password");
+            const tutor: any = await Tutor.findById(tutorId).select("-password");
 console.log(tutor);
 
             if (tutor) {
+                if (tutor.isBlocked) {
+                    res.status(403);
+                    throw new Error("Access denied, tutor is blocked");
+                }
                 req.tutor = tutor as unknown as TutorData;
                 next();
             }  else{

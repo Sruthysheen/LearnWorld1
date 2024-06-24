@@ -10,6 +10,7 @@ import AdminNavbar from '../Components/Admin/AdminDashboard/Header/AdminNavbar';
 import AdminDashboardPage from '../Pages/Admin/AdminDashboardPage';
 import AdminPrivateRoute from '../Components/PrivateRouter/AdminPrivateRouter';
 import AdminCoursePage from '../Pages/Admin/AdminCoursePage';
+import Pagenotfound from '../Components/Common/PageNotFound';
 
 const AdminRouter = () => {
     const location = useLocation();
@@ -32,6 +33,7 @@ const AdminRouter = () => {
                 <Route path="/editcategory/:id" element={<AdminEditCategoryPage />} />
                 <Route path="/admincourse" element={<AdminCoursePage/>} />
                 </Route>
+                <Route path="*" element={<Pagenotfound />} />
             </Routes>
         </>
     );

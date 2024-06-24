@@ -11,6 +11,7 @@ interface StudentData {
     _id: string;
     studentname: string;
     student: any | null;
+    isBlocked?: boolean;
 }
 
 
@@ -44,6 +45,10 @@ const isAuth = asyncHandler(
                 const student = await Student.findById(studentId).select("-password");
                 
                 if(student){
+                    if(student.isBlocked){
+                        res.status(403);
+                        throw new Error("Access denied, student is blocked");
+                    }
                     req.student = student as unknown as StudentData;
                     next();
                 }

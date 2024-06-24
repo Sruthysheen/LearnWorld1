@@ -26,6 +26,7 @@ import EnrollmentHistory from '../Components/Student/EnrolledCourse/EnrollmentHi
 import EnrollmentHistoryPage from '../Pages/Student/EnrollmentHistoryPage';
 import StudentWalletPage from '../Pages/Student/StudentWalletPage';
 import StudentViewQuizPage from '../Pages/Student/StudentViewQuizPage';
+import Pagenotfound from '../Components/Common/PageNotFound';
 
 
 const StudentRouter = () => {
@@ -47,12 +48,13 @@ const StudentRouter = () => {
         <Route path = "/newpassword" element = {<NewPasswordPage/>} />
         <Route path="/" element={<HomePage />} />
         <Route path="/getcourses" element={<CourseViewPage/>} />
+        <Route path="/singlecourse" element={<StudentSingleCourseViewPage/>} />
 
 
         <Route element={<PrivatePage isStudent={true} />}>
         
         
-        <Route path="/singlecourse" element={<StudentSingleCourseViewPage/>} />
+       
         <Route path="/cart" element={<CartPage/>} />
         <Route path="/wishlist" element={<WishlistPage/>} />
         <Route path="/profile" element={<StudentProfilePage/>} />
@@ -70,7 +72,7 @@ const StudentRouter = () => {
 
 
         </Route>
-
+        <Route path="*" element={<Pagenotfound />} />
       </Routes>
       {showFooter && <Footer/>}
     </>
