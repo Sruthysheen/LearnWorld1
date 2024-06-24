@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ApexChart from './AdminChart';
-import { adminListAllStudents, adminListAllTutors, getAllCourseForAdmin, getTotalRevenue } from '../../../Utils/config/axios.GetMethods';
+import { adminListAllStudents, adminListAllTutors, getAllCourseForAdmin, getAllOrders, getTotalRevenue } from '../../../Utils/config/axios.GetMethods';
 
 function AdminDashboard() {
     const navigate = useNavigate();
@@ -10,6 +10,7 @@ function AdminDashboard() {
     const [courses, setCourses] = useState([]);
     const [students, setStudents] = useState([]);
     const [tutors, setTutors] = useState([]);
+    const [orders, setOrders] = useState([]);
     const [totalRevenue,setTotalRevenue] = useState(0)
   
 
@@ -59,11 +60,26 @@ function AdminDashboard() {
           console.error('Failed to fetch total revenue', error);
         }
       }
+
+
+      const fetChOrders = async()=>{
+        try {
+          const response = await getAllOrders()
+          console.log(response,"..............................");
+          
+          setOrders(response.data.orders)
+        } catch (error) {
+          console.error('Failed to fetch all orders', error);
+        }
+      }
+
+
   
       fetchAllCourse();
       fetchData();
       fetchTutorData();
       fetchTotalRevenue();
+      fetChOrders();
     }, []);
 
 
@@ -210,6 +226,39 @@ function AdminDashboard() {
         </div>
       </div>
     </div>
+    <ApexChart/>
+    {/* Orders Table */}
+    <div className="mt-10">
+            <h2 className="text-2xl font-bold text-sky-500">Total Orders</h2>
+            <div className="overflow-x-auto mt-8">
+              <table className="min-w-full bg-white dark:bg-gray-800">
+                <thead>
+                  <tr>
+                    <th className="py-2 px-4 border-b dark:border-gray-700 text-gray-600">Student</th>
+                    <th className="py-2 px-4 border-b dark:border-gray-700 text-gray-600">Course</th>
+                    <th className="py-2 px-4 border-b dark:border-gray-700 text-gray-600">Amount</th>
+                    <th className="py-2 px-4 border-b dark:border-gray-700 text-gray-600">Tutor</th>
+                    <th className="py-2 px-4 border-b dark:border-gray-700 text-gray-600">Transaction Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+  {orders && orders.map((order: any) => (
+    <tr key={order.id}>
+      <td className="py-2 px-4 border-b dark:border-gray-700 flex items-center text-sky-600">
+        <img src={order.studentId.photo} alt={order.studentId.studentname} className="w-10 h-10 rounded-full mr-2" />
+        {order.studentId.studentname}
+      </td>
+      <td className="py-2 px-4 border-b dark:border-gray-700 text-center text-sky-600">{order.courseId?.courseName}</td>
+      <td className="py-2 px-4 border-b dark:border-gray-700 text-center text-sky-600">{order.amount}</td>
+      <td className="py-2 px-4 border-b dark:border-gray-700 text-center text-sky-600">{order.tutorId.tutorname}</td>
+      <td className="py-2 px-4 border-b dark:border-gray-700 text-center text-sky-600">{new Date(order.createdAt).toLocaleDateString()}</td>
+    </tr>
+  ))}
+</tbody>
+
+              </table>
+            </div>
+          </div>
   </div>
 </div>
         </>

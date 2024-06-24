@@ -8,7 +8,6 @@ function AdminDashboardPage() {
     <div>
       
         <AdminDashboard/>
-        <AdminChart/>
         </div>
   )
 }

@@ -495,3 +495,15 @@ export const createConversation=async(data:any)=>{
   }
   return await axiosInstance(config);
 }
+
+
+
+
+export const getUserMessages = async (data: any) => {
+  const config: AxiosRequestConfig = {
+    method: "POST",
+    url: "/chat/getUserMessages",
+    data: data,
+  };
+  return await axiosInstance(config);
+};

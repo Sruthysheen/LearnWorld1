@@ -416,6 +416,8 @@ console.log(req.body);
   };
 
 
+
+
   const calculateTotalRevenue = async (req: Request, res: Response) => {
     try {
      
@@ -477,6 +479,20 @@ console.log(req.body);
   
 
     
+  const getAllOrders = async(req: Request, res: Response)=>{
+    try {
+      const orders = await orderModel.find({}).populate('courseId').populate('studentId').populate('tutorId')
+    
+      if(orders){
+        return res.status(200).json({orders})
+      } else {
+        return res.status(400).json({message:"No orders found"})
+      }
+    } catch (error) {
+      console.error('Error getting orders:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
   
   
 
@@ -506,6 +522,7 @@ console.log(req.body);
           refreshTokenCreation,
           getAllCourses,
           calculateTotalRevenue,
+          getAllOrders
           
           
         }

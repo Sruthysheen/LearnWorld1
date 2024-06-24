@@ -9,7 +9,7 @@ import {
   fetchTutorChatMessages,
 } from "../../../../Utils/config/axios.GetMethods";
 import { toast } from "sonner";
-import { sendMessageFrom } from "../../../../Utils/config/axios.PostMethods";
+import { getUserMessages, sendMessageFrom } from "../../../../Utils/config/axios.PostMethods";
 import axios from "axios";
 import { ChatState } from "../../../../Slices/chatSlice/chatSlice";
 import { MessageState } from "../../../../Slices/messageSlice/messageSlice";
@@ -132,9 +132,7 @@ function Chat() {
       const data = {
         tutorId,
       };
-      const response = await axios
-        .create({ withCredentials: true })
-        .post("http://localhost:5000/chat/getUserMessages", data);
+      const response = await getUserMessages(data)
       if (response.data.status) {
         setChatData(response.data.data);
       } else {

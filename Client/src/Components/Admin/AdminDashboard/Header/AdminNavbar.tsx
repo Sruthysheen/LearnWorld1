@@ -66,12 +66,16 @@ function AdminNavbar() {
           <Link to="/admin/admincategory" className="py-4 px-2 text-sky-800 font-semibold">
             Category
           </Link>
+          <Link to="/admin/admincourse" className="py-4 px-2 text-sky-800 font-semibold">
+           Courses
+          </Link>
           <Link to="/admin/adminstudent" className="py-4 px-2 text-sky-800 font-semibold">
             Students
           </Link>
           <Link to="/admin/admintutor" className="py-4 px-2 text-sky-800 font-semibold">
             Tutors
           </Link>
+          
          
           {loggedIn && (
                 <button

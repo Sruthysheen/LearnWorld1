@@ -6,7 +6,7 @@ const ApexChart: React.FC = () => {
   const [series, setSeries] = useState([
     {
       name: 'Monthly Revenue',
-      data: []
+      data: [] as number[],
     }
   ]);
 

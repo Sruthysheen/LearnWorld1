@@ -383,6 +383,15 @@ export const getTotalRevenue =async()=>{
   return await axiosInstance(config)
 }
 
+export const getAllOrders =async()=>{
+  const config: AxiosRequestConfig = {
+    method: "GET",
+    url: `/admin/get-orders`
+  }
+  return await axiosInstance(config)
+}
+
+
 // export const getAllCatagoryForView=async()=>{
 //   console.log('INSide the APII');
   

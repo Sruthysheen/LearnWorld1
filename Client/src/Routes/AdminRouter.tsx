@@ -9,6 +9,7 @@ import AdminEditCategoryPage from '../Pages/Admin/AdminEditCategoryPage';
 import AdminNavbar from '../Components/Admin/AdminDashboard/Header/AdminNavbar';
 import AdminDashboardPage from '../Pages/Admin/AdminDashboardPage';
 import AdminPrivateRoute from '../Components/PrivateRouter/AdminPrivateRouter';
+import AdminCoursePage from '../Pages/Admin/AdminCoursePage';
 
 const AdminRouter = () => {
     const location = useLocation();
@@ -29,6 +30,7 @@ const AdminRouter = () => {
                 <Route path="/admincategory" element={<AdminCategoryPage />} />
                 <Route path="/adminaddcategory" element={<AdminAddCategoryPage />} />
                 <Route path="/editcategory/:id" element={<AdminEditCategoryPage />} />
+                <Route path="/admincourse" element={<AdminCoursePage/>} />
                 </Route>
             </Routes>
         </>
