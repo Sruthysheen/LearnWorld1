@@ -366,6 +366,23 @@ export const getAllCatagory=async()=>{
 }
 
 
+export const getAllCourseForAdmin = async()=>{
+  const config: AxiosRequestConfig = {
+    method: "GET",
+    url: `/admin/all-courses`
+  }
+  return await axiosInstance(config);
+}
+
+
+export const getTotalRevenue =async()=>{
+  const config: AxiosRequestConfig = {
+    method: "GET",
+    url: `/admin/total-revenue`
+  }
+  return await axiosInstance(config)
+}
+
 // export const getAllCatagoryForView=async()=>{
 //   console.log('INSide the APII');
   

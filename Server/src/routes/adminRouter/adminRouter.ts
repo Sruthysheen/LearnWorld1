@@ -1,6 +1,6 @@
 import express from "express";
 const adminRouter = express.Router();
-import {addAdminCategory, blockStudent, blockTutor, deleteCategory, editCategory, getCategoryById, listAllCategory, listAllStudents, listAllTutors, loginAdmin, logoutAdmin, refreshTokenCreation, unblockStudent, unblockTutor} from "../../controller/adminController/adminController";
+import {addAdminCategory, blockStudent, blockTutor, calculateTotalRevenue, deleteCategory, editCategory, getAllCourses, getCategoryById, listAllCategory, listAllStudents, listAllTutors, loginAdmin, logoutAdmin, refreshTokenCreation, unblockStudent, unblockTutor} from "../../controller/adminController/adminController";
 import { isAdmin } from "../../middleware/adminMiddleware";
 
 adminRouter.post('/adminlogin',loginAdmin);
@@ -15,6 +15,8 @@ adminRouter.get('/admincategory',isAdmin,listAllCategory)
 adminRouter.get('/getcategoryid/:id',isAdmin, getCategoryById)
 adminRouter.post('/editcategory',isAdmin,editCategory)
 adminRouter.delete('/deletecategory/:id',isAdmin,deleteCategory)
+adminRouter.get('/all-courses',isAdmin,getAllCourses)
+adminRouter.get('/total-revenue',isAdmin,calculateTotalRevenue)
 adminRouter.post('/adminlogout',logoutAdmin)
 adminRouter.post('/refresh',refreshTokenCreation)
 

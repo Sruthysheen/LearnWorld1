@@ -1,10 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import ApexChart from './AdminChart';
+import { adminListAllStudents, adminListAllTutors, getAllCourseForAdmin, getTotalRevenue } from '../../../Utils/config/axios.GetMethods';
 
 function AdminDashboard() {
     const navigate = useNavigate();
     const { admin } = useSelector((state:any) => state.admin);
+    const [courses, setCourses] = useState([]);
+    const [students, setStudents] = useState([]);
+    const [tutors, setTutors] = useState([]);
+    const [totalRevenue,setTotalRevenue] = useState(0)
+  
 
     useEffect(() => {
         if (admin) {
@@ -13,39 +20,63 @@ function AdminDashboard() {
         }
     }, []);
 
+    useEffect(() => {
+      const fetchAllCourse = async () => {
+        try {
+          const response = await getAllCourseForAdmin();
+          console.log(response,"??????????????????????????????///");
+          
+          setCourses(response.data.courseDetails);
+        } catch (error) {
+          console.error('Failed to fetch courses', error);
+        }
+      };
+
+
+      const fetchData = async () => {
+        try {
+          const result: any = await adminListAllStudents();
+          setStudents(result.data.studentDetails);
+        } catch (error) {
+          console.error("Error during admin get all students:", error);
+        }
+      };
+
+      const fetchTutorData = async () => {
+        try {
+          const result: any = await adminListAllTutors();
+          setTutors(result.data.tutorDetails);
+        } catch (error) {
+          console.error("Error during admin get all tutors:", error);
+        }
+      };
+
+      const fetchTotalRevenue = async()=>{
+        try {
+          const response = await getTotalRevenue()
+          setTotalRevenue(response.data.totalRevenue)
+        } catch (error) {
+          console.error('Failed to fetch total revenue', error);
+        }
+      }
+  
+      fetchAllCourse();
+      fetchData();
+      fetchTutorData();
+      fetchTotalRevenue();
+    }, []);
+
+
+   
+  
+
+
     return (
         <>
         <div className="flex   w-screen   dark:bg-gray-900">
   <div className="container max-w-6xl px-5 mx-auto my-10 ">
     <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
-      <div className="p-5 bg-sky-300 rounded shadow-sm">
-        <div className="flex items-center space-x-4">
-          <div>
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-fuchsia-50 text-fuchsia-400">
-              <svg
-                width={32}
-                height={32}
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M17.3333 9.33334H28M28 9.33334V20M28 9.33334L17.3333 20L12 14.6667L4 22.6667"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </div>
-          <div>
-            <div className="text-gray-400">Total Sales</div>
-            <div className="text-2xl font-bold text-gray-900">$9850.90</div>
-          </div>
-        </div>
-      </div>
-      <div className="p-5 bg-sky-300 rounded shadow-sm">
+    <div className="p-5 bg-sky-300 rounded shadow-sm">
         <div className="flex items-center space-x-4">
           <div>
             <div className="flex items-center justify-center w-12 h-12 rounded-full bg-cyan-50 text-cyan-400">
@@ -74,11 +105,42 @@ function AdminDashboard() {
             </div>
           </div>
           <div>
-            <div className="text-gray-400">Net Revenue</div>
-            <div className="text-2xl font-bold text-gray-900">$7520.50</div>
+            <div className="text-gray-500">Net Revenue</div>
+            <div className="text-2xl font-bold text-gray-900">₹ {totalRevenue}</div>
           </div>
         </div>
       </div>
+      <div className="p-5 bg-sky-300 rounded shadow-sm">
+        <div className="flex items-center space-x-4">
+          
+          <div>
+
+            
+            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-fuchsia-50 text-fuchsia-400">
+              <svg
+                width={32}
+                height={32}
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.3333 9.33334H28M28 9.33334V20M28 9.33334L17.3333 20L12 14.6667L4 22.6667"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+          <div>
+          <div className="text-gray-500">Total Courses</div>
+          <div className="text-2xl font-bold text-gray-900">{courses.length}</div>
+          </div>
+        </div>
+      </div>
+      
       <div className="p-5 bg-sky-300 rounded shadow-sm">
         <div className="flex items-center space-x-4">
           <div>
@@ -108,8 +170,8 @@ function AdminDashboard() {
             </div>
           </div>
           <div>
-            <div className="text-gray-400">Customers</div>
-            <div className="text-2xl font-bold text-gray-900">1375</div>
+            <div className="text-gray-500">Students</div>
+            <div className="text-2xl font-bold text-gray-900">{students.length}</div>
           </div>
         </div>
       </div>
@@ -117,7 +179,7 @@ function AdminDashboard() {
         <div className="flex items-center space-x-4">
           <div>
             <div className="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-50 text-emerald-400">
-              <svg
+            <svg
                 width={32}
                 height={32}
                 viewBox="0 0 32 32"
@@ -125,8 +187,15 @@ function AdminDashboard() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M12 25.3333V17.3333C12 16.6261 11.719 15.9478 11.219 15.4477C10.7189 14.9476 10.0406 14.6667 9.33333 14.6667H6.66667C5.95942 14.6667 5.28115 14.9476 4.78105 15.4477C4.28095 15.9478 4 16.6261 4 17.3333V25.3333C4 26.0406 4.28095 26.7189 4.78105 27.219C5.28115 27.719 5.95942 28 6.66667 28H9.33333C10.0406 28 10.7189 27.719 11.219 27.219C11.719 26.7189 12 26.0406 12 25.3333ZM12 25.3333V12C12 11.2928 12.281 10.6145 12.781 10.1144C13.2811 9.61428 13.9594 9.33333 14.6667 9.33333H17.3333C18.0406 9.33333 18.7189 9.61428 19.219 10.1144C19.719 10.6145 20 11.2928 20 12V25.3333M12 25.3333C12 26.0406 12.281 26.7189 12.781 27.219C13.2811 27.719 13.9594 28 14.6667 28H17.3333C18.0406 28 18.7189 27.719 19.219 27.219C19.719 26.7189 20 26.0406 20 25.3333M20 25.3333V6.66667C20 5.95942 20.281 5.28115 20.781 4.78105C21.2811 4.28095 21.9594 4 22.6667 4H25.3333C26.0406 4 26.7189 4.28095 27.219 4.78105C27.719 5.28115 28 5.95942 28 6.66667V25.3333C28 26.0406 27.719 26.7189 27.219 27.219C26.7189 27.719 26.0406 28 25.3333 28H22.6667C21.9594 28 21.2811 27.719 20.781 27.219C20.281 26.7189 20 26.0406 20 25.3333Z"
-                  stroke="currentColor "
+                  d="M19.7712 13.1046C20.7714 12.1044 21.3333 10.7478 21.3333 9.33333C21.3333 7.91885 20.7714 6.56229 19.7712 5.5621C18.771 4.5619 17.4145 4 16 4C14.5855 4 13.2289 4.5619 12.2288 5.5621C11.2286 6.56229 10.6667 7.91885 10.6667 9.33333C10.6667 10.7478 11.2286 12.1044 12.2288 13.1046C13.2289 14.1048 14.5855 14.6667 16 14.6667C17.4145 14.6667 18.771 14.1048 19.7712 13.1046Z"
+                  stroke="#FBBF24"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M9.40033 21.4003C11.1507 19.65 13.5246 18.6667 16 18.6667C18.4753 18.6667 20.8493 19.65 22.5997 21.4003C24.35 23.1507 25.3333 25.5246 25.3333 28H6.66666C6.66666 25.5246 7.64999 23.1507 9.40033 21.4003Z"
+                  stroke="currentColor"
                   strokeWidth={2}
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -135,15 +204,14 @@ function AdminDashboard() {
             </div>
           </div>
           <div>
-            <div className="text-gray-300">MRR</div>
-            <div className="text-2xl font-bold text-gray-900">$250.00</div>
+            <div className="text-gray-500">Tutors</div>
+            <div className="text-2xl font-bold text-gray-900">{tutors.length}</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
         </>
     );
 }

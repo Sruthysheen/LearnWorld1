@@ -5,6 +5,8 @@ import Student from "../../models/studentModel";
 import Tutor from "../../models/tutorModel";
 import Category from "../../models/categoryModel";
 import jwt from "jsonwebtoken";
+import Course from "../../models/courseModel";
+import orderModel from "../../models/orderModel";
 
 
 
@@ -399,6 +401,87 @@ console.log(req.body);
 
 
   
+  const getAllCourses = async (req: Request, res: Response) => {
+    try {
+      const courseDetails = await Course.find({});
+      if (courseDetails.length > 0) {
+        return res.status(200).json({ success: true, courseDetails });
+      } else {
+        return res.status(400).json({ success: false, message: 'No courses found' });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+  };
+
+
+  const calculateTotalRevenue = async (req: Request, res: Response) => {
+    try {
+     
+      const totalRevenueResult = await orderModel.aggregate([
+        {
+          $match: {
+            status: 'success'
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            totalRevenue: { $sum: '$amount' }
+          }
+        }
+      ]);
+  
+      const totalRevenue = totalRevenueResult && totalRevenueResult.length > 0 ? totalRevenueResult[0].totalRevenue : 0;
+  
+      
+      const monthlyRevenueResult = await orderModel.aggregate([
+        {
+          $match: {
+            status: 'success'
+          }
+        },
+        {
+          $group: {
+            _id: {
+              year: { $year: '$createdAt' },
+              month: { $month: '$createdAt' }
+            },
+            monthlyRevenue: { $sum: '$amount' }
+          }
+        },
+        {
+          $sort: {
+            '_id.year': 1,
+            '_id.month': 1
+          }
+        }
+      ]);
+  
+      const monthlyRevenue = monthlyRevenueResult.map(item => ({
+        year: item._id.year,
+        month: item._id.month,
+        revenue: item.monthlyRevenue
+      }));
+  
+      console.log(`Total Revenue: $${totalRevenue}`);
+      console.log('Monthly Revenue:', monthlyRevenue);
+  
+      return res.status(200).json({ totalRevenue, monthlyRevenue });
+    } catch (error) {
+      console.error('Error calculating revenues:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+  
+
+    
+  
+  
+
+
+  
   
 
 
@@ -420,7 +503,9 @@ console.log(req.body);
           getCategoryById,
           editCategory,
           deleteCategory,
-          refreshTokenCreation
+          refreshTokenCreation,
+          getAllCourses,
+          calculateTotalRevenue,
           
           
         }
