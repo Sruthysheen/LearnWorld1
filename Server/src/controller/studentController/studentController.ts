@@ -948,6 +948,60 @@ console.log(stripeSecretKey, "Keyy");
     }
   };
   
+
+  const updatedProgress = async(req:Request,res:Response)=>{
+    const { courseId, studentId, lessonId } = req.body;
+
+    try {
+      const course = await Course.findById(courseId);
+
+        if (!course) {
+            return res.status(404).send({ message: 'Course not found' });
+        }
+
+        const studentProgress = course.studentsProgress.find(sp => sp.studentId.toString() === studentId);
+
+        if (studentProgress) {
+            const lessonProgress = studentProgress.progress.find(lp => lp.lessonId.toString() === lessonId);
+            if (lessonProgress) {
+                lessonProgress.isCompleted = true;
+            } else {
+                studentProgress.progress.push({ lessonId, isCompleted: true });
+            }
+        } else {
+            course.studentsProgress.push({
+                studentId,
+                progress: [{ lessonId, isCompleted: true }]
+            });
+        }
+
+        await course.save();
+        res.status(200).send({ message: 'Progress updated successfully' });
+    } catch (error) {
+      res.status(500).send({ message: 'Failed to update progress', error });
+    }
+  }
+
+
+  const fetchProgress = async(req:Request,res:Response)=>{
+    const { courseId, studentId } = req.params;
+    try {
+      const course = await Course.findById(courseId);
+      if (!course) {
+          return res.status(404).json({ msg: 'Course not found' });
+      }
+      const studentProgress = course.studentsProgress.find(sp => sp.studentId.toString() === studentId);
+      if (!studentProgress) {
+          return res.json({ status: true, data: { watchedLessons: [] } });
+      }
+      const watchedLessons = studentProgress.progress.filter(lesson => lesson.isCompleted);
+
+      res.json({ status: true, data: { watchedLessons } });
+    } catch (error) {
+      console.error('Error fetching student progress:', error);
+      res.status(500).send('Server Error');
+    }
+  }
   
   
 
@@ -999,5 +1053,7 @@ export {
     getRating,
     getAllRatings,
     fetchQuizzesByCourse,
-    getAverageRatings
+    getAverageRatings,
+    updatedProgress,
+    fetchProgress
 }

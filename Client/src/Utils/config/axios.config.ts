@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { BASEURL } from "../../Constants/BaseUrl";
 const token=localStorage.getItem('Token')
 export const api = axios.create({
-	baseURL: "http://localhost:5000/",
+	baseURL: BASEURL,
 	timeout: 5000,
 	withCredentials:true,
 	headers: {
@@ -13,7 +14,7 @@ export const api = axios.create({
 
 
 export const axiosInstance = axios.create({
-	baseURL: "http://localhost:5000/",
+	baseURL: BASEURL,
 	timeout: 5000,
 	withCredentials: true,
 	headers: {
@@ -55,7 +56,7 @@ export const axiosInstance = axios.create({
 	  if (error.response.status === 401 && !originalRequest._retry) {      
 		originalRequest._retry = true;
 		try {
-		  const route:any = 'http://localhost:5000/student/refresh'
+		  const route:any = `${BASEURL}/student/refresh`
 		  const refreshResponse = await axiosInstance.post(route);        
 		  const newAccessToken = refreshResponse.data.token;
 		 

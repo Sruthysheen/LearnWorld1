@@ -671,7 +671,7 @@ const deleteLesson = async (req: Request, res: Response) => {
     course.lessons.splice(lessonIndex, 1);
     await course.save();
 
-    return res.status(200).json({ status: true, message: "Lesson deleted successfully"});
+    return res.status(200).json({ status: true, message: "Lesson deleted successfully",data:course});
   } catch (error) {
     console.error("Error deleting lesson:", error);
     return res.status(500).json({ status: false, message: "An error occurred while deleting the lesson" });

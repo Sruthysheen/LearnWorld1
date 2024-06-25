@@ -34,7 +34,9 @@ import{studentRegistration,
        getRating,
        getAllRatings,
        fetchQuizzesByCourse,
-       getAverageRatings
+       getAverageRatings,
+       updatedProgress,
+       fetchProgress
     } from "../../controller/studentController/studentController";
 import { isAuth } from "../../middleware/authMiddleware";
 import upload from "../../multer/upload";
@@ -78,6 +80,8 @@ studentRouter.get('/get-rating/:courseId/:studentId',isAuth,getRating)
 studentRouter.get('/all-ratings/:courseId',isAuth,getAllRatings)
 studentRouter.get('/student-view-quiz/:courseId',isAuth,fetchQuizzesByCourse)
 studentRouter.get('/get-average-rating',getAverageRatings)
+studentRouter.post('/student-progress',isAuth,updatedProgress)
+studentRouter.get('/get-progress/:courseId/:studentId',isAuth,fetchProgress)
 studentRouter.post("/logout",studentLogout);
 studentRouter.get('/test',isAuth,(req,res)=>{
     res.status(200).json({message:"Hello"})

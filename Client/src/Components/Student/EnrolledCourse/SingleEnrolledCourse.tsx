@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { format, parseISO } from 'date-fns';
-import { fetchCategory,getRating } from "../../../Utils/config/axios.GetMethods";
+import { fetchCategory,fetchStudentProgress,getRating } from "../../../Utils/config/axios.GetMethods";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
-import { createConversation, postReview, } from "../../../Utils/config/axios.PostMethods";
+import { createConversation, postReview, studentProgress, } from "../../../Utils/config/axios.PostMethods";
 import StarRating from "../Course/StarRating";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -24,11 +24,18 @@ interface RatingDocument {
     createdAt: Date;
   }
 
+  interface WatchedLesson {
+    lessonId: string;
+    isCompleted: boolean;
+    _id: string;
+}
+
+
 function SingleEnrolledCourse() {
     const { student } = useSelector((state: any) => state.student);
     const { courseDetails } = useSelector((state: any) => state.course);
     const [currentVideo, setCurrentVideo] = useState("");
-    const [watchedLessons, setWatchedLessons] = useState<string[]>([]);
+    const [watchedLessons, setWatchedLessons] = useState<WatchedLesson[]>([]);
     const [categoryName, setCategoryName] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -115,17 +122,20 @@ const navigate =useNavigate()
         }
     };
 
-    // const fetchProgress = async () => {
-    //     try {
-    //         if (!courseId || !studentId) return;
-    //         const response = await fetchStudentProgress(courseId, studentId);
-    //         if (response && response.data) {
-    //             setWatchedLessons(response.data.watchedLessons);
-    //         }
-    //     } catch (error) {
-    //         console.error("Failed to fetch progress:", error);
-    //     }
-    // };
+    const fetchProgress = async () => {
+        try {
+            if (!courseId || !studentId) return;
+            const response = await fetchStudentProgress(courseId, studentId);
+            console.log(response,'REWW');
+            
+            if (response && response.data.status) {
+                setWatchedLessons(response?.data?.data?.watchedLessons);
+            }
+        } catch (error) {
+            console.error("Failed to fetch progress:", error);
+        }
+    };
+
 
     const handlePlayVideo = (videoUrl: string) => {
         setCurrentVideo(videoUrl);
@@ -145,20 +155,20 @@ const navigate =useNavigate()
   
 
     const handleVideoEnd = async (lessonId: string) => {
-        console.log(lessonId,".............this is lesson id");
-        
-        if (!watchedLessons.includes(lessonId)) {
-            const updatedWatchedLessons = [...watchedLessons, lessonId];
+        if (!watchedLessons.some(lesson => lesson.lessonId === lessonId)) {
+            const updatedWatchedLessons:any = [...watchedLessons, { lessonId, isCompleted: true }];
             setWatchedLessons(updatedWatchedLessons);
             localStorage.setItem(`progress_${student._id}_${courseDetails?.courseId?._id}`, JSON.stringify(updatedWatchedLessons));
             try {
-                // await studentProgress(courseId, studentId, lessonId);
+                await studentProgress(courseId, studentId, lessonId);
                 console.log("Progress updated successfully.");
             } catch (error) {
                 console.error("Failed to update progress:", error);
             }
         }
     };
+    
+
 
       useEffect(() => {
         if (currentVideo && videoRef.current) {
@@ -182,7 +192,7 @@ const navigate =useNavigate()
         if (courseDetails?.courseId?.category) {
             fetchCategoryName(courseDetails.courseId.category);
         }
-        // fetchProgress();
+        fetchProgress();
     }, [student._id, courseDetails]);
 
     

@@ -216,6 +216,19 @@ export const postReview = async(review:string,rating:number,courseId:string,stud
 }
 
 
+export const studentProgress = async(courseId:string,studentId:string,lessonId:string)=>{
+  const config: AxiosRequestConfig = {
+    method: "POST",
+    url: `/student/student-progress`,
+    data:{
+      courseId:courseId,
+      studentId:studentId,
+      lessonId:lessonId
+    }
+  }
+  return await axiosInstance(config)
+}
+
 
 //admin------------------------------------------------------------------------
 //-----------------------------------------------------------------------------

@@ -5,6 +5,8 @@ import { format, parseISO } from 'date-fns';
 import { toast } from "sonner";
 import { deleteLesson } from "../../../Utils/config/axios.DeleteMethod";
 import { getSingleCourse } from "../../../Utils/config/axios.GetMethods";
+import { useDispatch } from "react-redux";
+import { clearCourseDetails, setSingleCourseDetails } from "../../../Slices/tutorSlice/courseSlice";
 
 
 interface Category {
@@ -31,13 +33,13 @@ interface CourseDetail {
 }
 
 function ViewSingleCourse() {
-  const [singleInfo,setSingleInfo] = useState<CourseDetail | null>(null)
+  const [singleInfo,setSingleInfo] = useState<any | null>(null)
   const [lessons,setLessons] = useState<Lesson[]>([])
   const { courseDetails } = useSelector((state:any) => state.course);
   console.log(courseDetails,"]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
   
   const courseId = courseDetails._id;
- 
+ const dispatch=useDispatch()
   
   
 
@@ -61,40 +63,15 @@ function ViewSingleCourse() {
     }
   }, [currentVideo]);
 
-
-  const fetchData = async()=>{
-    try {
-      const response = await getSingleCourse(courseId);
-      console.log(response,"....................................");
-      
-      if(response.data){
-        const data = response.data.courseDetail;
-        setSingleInfo(data)
-      } 
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      toast.error("Error fetching data. Please try again later.");
-    }
-  }
- 
-  
-  useEffect(()=>{
-    fetchData();
-  },[courseId])
-
-
   const handleDelete = async (lessonId:string) => {
     try {
       const response = await deleteLesson(courseId, lessonId);
       if (response.status) {
+        console.log(response.data.data,'-999999')
         toast.success("Lesson deleted successfully");
-        setSingleInfo((prevInfo) => {
-          if (prevInfo) {
-            const updatedLessons = prevInfo.lessons.filter(lesson => lesson._id !== lessonId);
-            return { ...prevInfo, lessons: updatedLessons };
-          }
-          return prevInfo;
-        })
+        dispatch(clearCourseDetails());
+    dispatch(setSingleCourseDetails(response.data.data));
+
       } else {
         toast.error("Failed to delete lesson. Please try again.");
       }
@@ -104,6 +81,10 @@ function ViewSingleCourse() {
     }
   };
   
+
+  useEffect(()=>{
+console.log(singleInfo,'----000')
+  },[singleInfo])
   return (
     <>
       
@@ -173,7 +154,8 @@ function ViewSingleCourse() {
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-2 text-sky-600">Lessons:</h3>
               <ul>
-                {courseDetails.lessons.map((lesson:any, index:number) => (
+                {/* {singleInfo.lessons.length >0 &&  singleInfo.lessons.map((lesson:any, index:number) => ( */}
+                   {courseDetails.lessons.length >0 &&  courseDetails.lessons.map((lesson:any, index:number) => (
                   <li key={lesson._id} className="mb-2 p-3 border border-sky-200 rounded-md">
                     <div className="grid grid-cols-3 gap-4">
                       <div className="text-sky-700"> {lesson.title}</div>

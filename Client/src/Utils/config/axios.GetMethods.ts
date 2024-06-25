@@ -158,6 +158,14 @@ export const getAverageRatings = async()=>{
 }
 
 
+export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
+  const config: AxiosRequestConfig = {
+    method: "GET",
+    url: `/student/get-progress/${courseId}/${studentId}`
+  }
+  return await axiosInstance(config)
+}
+
 //tutor------------------------------------------------------------------------------------
 
   export const resendOtpTutor = async() => {
