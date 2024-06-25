@@ -6,7 +6,6 @@ import {studentRouter} from "./routes/studentRouter/studentRouter";
 import {tutorRouter} from "./routes/tutorRouter/tutorRouter";
 import { adminRouter } from "./routes/adminRouter/adminRouter";
 import { Server,Socket } from "socket.io";
-// import { initializeSocketIO } from "./Utlitis/socketio";
 import {createAMessage} from './controller/chatController/chatController'
 import http from 'http'
 

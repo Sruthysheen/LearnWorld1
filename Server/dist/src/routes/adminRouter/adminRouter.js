@@ -1,0 +1,28 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.adminRouter = void 0;
+var express_1 = __importDefault(require("express"));
+var adminRouter = express_1.default.Router();
+exports.adminRouter = adminRouter;
+var adminController_1 = require("../../controller/adminController/adminController");
+var adminMiddleware_1 = require("../../middleware/adminMiddleware");
+adminRouter.post('/adminlogin', adminController_1.loginAdmin);
+adminRouter.get('/adminstudent', adminMiddleware_1.isAdmin, adminController_1.listAllStudents);
+adminRouter.put('/blockstudent/:id', adminMiddleware_1.isAdmin, adminController_1.blockStudent);
+adminRouter.put('/unblockstudent/:id', adminMiddleware_1.isAdmin, adminController_1.unblockStudent);
+adminRouter.get('/admintutor', adminMiddleware_1.isAdmin, adminController_1.listAllTutors);
+adminRouter.put('/blocktutor/:id', adminMiddleware_1.isAdmin, adminController_1.blockTutor);
+adminRouter.put('/unblocktutor/:id', adminMiddleware_1.isAdmin, adminController_1.unblockTutor);
+adminRouter.post('/adminaddcategory', adminMiddleware_1.isAdmin, adminController_1.addAdminCategory);
+adminRouter.get('/admincategory', adminMiddleware_1.isAdmin, adminController_1.listAllCategory);
+adminRouter.get('/getcategoryid/:id', adminMiddleware_1.isAdmin, adminController_1.getCategoryById);
+adminRouter.post('/editcategory', adminMiddleware_1.isAdmin, adminController_1.editCategory);
+adminRouter.delete('/deletecategory/:id', adminMiddleware_1.isAdmin, adminController_1.deleteCategory);
+adminRouter.get('/all-courses', adminMiddleware_1.isAdmin, adminController_1.getAllCourses);
+adminRouter.get('/total-revenue', adminMiddleware_1.isAdmin, adminController_1.calculateTotalRevenue);
+adminRouter.get('/get-orders', adminMiddleware_1.isAdmin, adminController_1.getAllOrders);
+adminRouter.post('/adminlogout', adminController_1.logoutAdmin);
+adminRouter.post('/refresh', adminController_1.refreshTokenCreation);
