@@ -79,6 +79,9 @@ function tutorRegister() {
             console.log(response)
             if (response.status === 200) {
                 navigate("/tutor/tutorotp");}
+                else{
+                  toast.error("Already existed User")
+                }
         } catch (error) {
             console.error("Registration error:", error);
         }

@@ -5,32 +5,32 @@ const courses = [
   {
     name: "HTML and CSS",
     tutor: "Pete Jepson",
-    priceOriginal: "MVR 1000",
-    priceSale: "MVR 700",
+    priceOriginal: "₹ 1000",
+    priceSale: "₹ 700",
     image: "public/Html.png",
-    rating: "4.5 Stars"
+    rating: "4.5 Star"
   },
   {
     name: "Advanced SQL",
     tutor: "Meera K S",
-    priceOriginal: "MVR 1200",
-    priceSale: "MVR 800",
+    priceOriginal: "₹ 1200",
+    priceSale:"₹ 800",
     image: "public/Sql.webp",
     rating: "4.8 Stars"
   },
   {
     name: "Swift",
     tutor: "Anu Joseph",
-    priceOriginal: "MVR 1100",
-    priceSale: "MVR 650",
+    priceOriginal: "₹ 1100",
+    priceSale: "₹ 650",
     image: "public/Swift1.jpg",
     rating: "4.9 Stars"
   },
   {
     name: "Big Data Technologies",
     tutor: "Teena Kurian",
-    priceOriginal: "MVR 900",
-    priceSale: "MVR 600",
+    priceOriginal: "₹ 900",
+    priceSale: "₹ 600",
     image: "Big-Data.jpg",
     rating: "4.7 Stars"
   },
@@ -38,32 +38,32 @@ const courses = [
   {
     name: "React Native",
     tutor: "Alexander",
-    priceOriginal: "MVR 900",
-    priceSale: "MVR 600",
+    priceOriginal: "₹ 900",
+    priceSale: "₹ 600",
     image: "public/React.jpg",
     rating: "4.7 Stars"
   },
   {
     name: "JavaScript",
     tutor: "Rosel",
-    priceOriginal: "MVR 900",
-    priceSale: "MVR 600",
+    priceOriginal: "₹ 900",
+    priceSale: "₹ 600",
     image: "public/js.jpg",
     rating: "4.7 Stars"
   },
   {
     name: "Android Studio",
     tutor: "Joseph",
-    priceOriginal: "MVR 900",
-    priceSale: "MVR 600",
+    priceOriginal: "₹ 900",
+    priceSale: "₹ 600",
     image: "public/Android.webp",
     rating: "4.7 Stars"
   },
   {
     name: "Flutter",
     tutor: "Emanual",
-    priceOriginal: "MVR 900",
-    priceSale: "MVR 600",
+    priceOriginal: "₹ 900",
+    priceSale: "₹ 600",
     image: "public/Flutter.jpg",
     rating: "4.7 Stars"
   },

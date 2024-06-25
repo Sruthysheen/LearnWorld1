@@ -70,20 +70,21 @@ function TutorLogin() {
   
   
     const handleLogin = async(loginData: loginTutor) =>{
+      
       try {
         setLoading(true);
         const response:any = await tutorLogin(loginData);
   
-        if(response.status === 200) {
-          dispatch(tutorlogin(response.data.token));
+        if(response.data.status){
+        dispatch(tutorlogin(response.data.token));
           localStorage.setItem("Token",`${response.data.token}`);
           localStorage.setItem("isVerified",'true')
           dispatch(tutorregister(response.data.response));
           navigate("/tutor/home", {replace: true});
         } else {
-          if(response.response.status === 404) {
-            toast.error(response.response.data.message);
-          }
+        
+            toast.error(response.data.message);
+        
         }
       } catch (error) {  
       }finally {

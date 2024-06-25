@@ -19,21 +19,22 @@ const loginAdmin = async (req: Request, res: Response) => {
       // Assuming you have a MongoDB collection called "admins"
       const admin = await Admin.findOne({ adminemail });
   
-      if (admin && admin.password === password) {
+      if (admin)
+        if(admin.password === password) {
         const idString = admin._id.toString();
         const accessToken = generateAccessToken(idString); 
         const refreshToken = generateRefreshToken(idString)
         req.session.accessToken = accessToken;
-        return res.status(200).json({
-          id: idString,
-          adminemail,
-          token:refreshToken,
+        return res.json({status:true,id: idString,adminemail,token:refreshToken,
         });
       } else {
-        return res.status(401).json({ message: "Invalid Email or password" });
+        return res.json({status:false,message:"Invalid email or password"})
+      }
+        else {
+          return res.json({status:false,message:"Invalid email or password"})
       }
     } catch (error) {
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.json({status:false, message: "Internal Server Error" });
     }
   };
 

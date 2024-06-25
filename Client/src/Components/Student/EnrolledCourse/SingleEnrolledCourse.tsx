@@ -57,6 +57,8 @@ console.log(courseDetails,'THIS IS COURSE DETAILS');
 
       },[courseDetails])
 
+      
+
 
 const fetchMyRating = async () => {
     try {
@@ -197,14 +199,6 @@ const navigate =useNavigate()
 
     
 
-//    useEffect(() => {
-//         if (student?._id && courseDetails?.courseId?._id) {
-//             fetchProgress();
-//             if (courseDetails?.courseId?.category) {
-//                 fetchCategoryName(courseDetails.courseId.category);
-//             }
-//         }
-//     }, [student._id, courseDetails]);
 
     const handleConversation=async()=>{
         const data={

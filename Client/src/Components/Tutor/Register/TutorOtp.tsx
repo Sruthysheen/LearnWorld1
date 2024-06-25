@@ -23,6 +23,8 @@ const dispatch=useDispatch()
               localStorage.setItem("isVerified",'true')
               dispatch(tutorregister(res.data.response));
               navigate("/tutor/home", {replace: true});
+            } else {
+              toast.error("Invalid OTP")
             }
             } catch (error) {
               localStorage.setItem("isVerified",'false')

@@ -87,6 +87,9 @@ const verifyOtp = async (req: Request, res: Response) => {
   }
 };
 
+
+
+
 const tutorLogin = async (req: Request, res: Response) => {
   const { tutoremail, password } = req.body;
 
@@ -95,10 +98,10 @@ const tutorLogin = async (req: Request, res: Response) => {
       isBlocked: false,
     });
     if (!tutor) {
-      return res.status(401).json({ message: "Tutor does not exist" });
+      return res.json({status:false, message: "Tutor does not exist" });
     }
     if (tutor?.isBlocked == true) {
-      return res.status(401).json({ message: "Tutor is blocked" });
+      return res.json({status:false, message: "Tutor is blocked" });
     }
     if (tutor) {
       const passwordMatch = await tutor.matchPassword(password);
@@ -106,15 +109,19 @@ const tutorLogin = async (req: Request, res: Response) => {
         const accessToken = generateAccessToken(tutor._id);
             const refreshToken =generateRefreshToken(tutor._id)
             req.session.accessToken = accessToken;
-            return res.json({response:tutor,token:refreshToken});
+            return res.json({status:true,response:tutor,token:refreshToken});
+      } else {
+        return res.json({status:false, message: "Invalid email or password" });
       }
     } else {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.json({status:false, message: "Invalid email or password" });
     }
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
+    return res.json({ status:false,message: "Internal server error" });
   }
 };
+
+
 
 const tutorResendOtp = async (req: Request, res: Response) => {
   try {

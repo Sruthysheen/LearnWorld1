@@ -9,23 +9,31 @@ import { clearCourseDetails, setSingleCourseDetails } from '../../../Slices/tuto
 
 const renderStarRating = (rating: number) => {
   const stars = [];
-  for (let i = 1; i <= 5; i++) {
-    if (i <= rating) {
-      stars.push(
-        <span key={i} className="text-yellow-500">
-          ★
-        </span>
-      );
-    } else {
-      stars.push(
-        <span key={i} className="text-gray-400">
-          ★
-        </span>
-      );
-    }
+  let filledStars = Math.floor(rating);
+  let halfFilledStars = rating % 1!== 0? 1 : 0;
+
+  for (let i = 1; i <= filledStars; i++) {
+    stars.push(<span key={i} className="text-yellow-500">★</span>);
   }
-  return stars;
+
+  if (halfFilledStars === 1) {
+    stars.push(<span key={`${filledStars + 1}`} className="text-yellow-500">☆</span>);
+  }
+
+  for (let i = filledStars + 1; i <= 5; i++) {
+    stars.push(<span key={i} className="text-gray-400">★</span>);
+  }
+
+  return (
+    <div className="flex items-center">
+      {stars}
+      <span className="ml-2 text-gray-600 dark:text-gray-400 text-xs">
+        {rating.toFixed(1)}
+      </span>
+    </div>
+  );
 };
+
 
 
 interface Course {
@@ -196,42 +204,43 @@ function CourseView() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-5 mx-10 gap-4">
-        {paginatedFilteredData.map((course, index) => (
-          <div key={index} className="mt-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-3/4 mx-auto">
-            <Link to="/singlecourse">
-              <img
-                className="rounded-t-lg w-full h-40 object-cover"
-                src={course.photo}
-                alt={course.courseName}
-              />
-            </Link>
-            <div className="p-5">
-              <Link to="/singlecourse">
-                <h5 className="mb-2 text-xl font-bold tracking-tight text-sky-700 dark:text-white">
-                  {course.courseName}
-                </h5>
-              </Link>
-              <h3 className="font-normal text-sky-600 dark:text-gray-400">
-                ₹{course.courseFee}
-              </h3>
-              <div className="flex items-center mb-2">
-                {renderStarRating(averageRatings[course._id]?.averageRating || 0)}
-                <span className="ml-2 text-gray-600 dark:text-gray-400 text-xs">
-                  ({averageRatings[course._id]?.ratingCount || 0})
-                </span>
-              </div>
-              <div className="text-start">
-                <Link
-                  to="/singlecourse"
-                  onClick={() => handleReadMore(course)}
-                  className="inline-flex items-center px-6 py-1 text-sm font-medium text-center text-white bg-sky-600 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  View Course
-                </Link>
-              </div>
-            </div>
-          </div>
-        ))}
+      {paginatedFilteredData.map((course, index) => (
+  <div key={index} className="mt-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-3/4 mx-auto">
+    <Link to="/singlecourse">
+      <img
+        className="rounded-t-lg w-full h-40 object-cover"
+        src={course.photo}
+        alt={course.courseName}
+      />
+    </Link>
+    <div className="p-5">
+      <Link to="/singlecourse">
+        <h5 className="mb-2 text-xl font-bold tracking-tight text-sky-700 dark:text-white">
+          {course.courseName}
+        </h5>
+      </Link>
+      <h3 className="font-normal text-sky-600 dark:text-gray-400">
+        ₹{course.courseFee}
+      </h3>
+      <div className="flex items-center mb-2">
+        {renderStarRating(averageRatings[course._id]?.averageRating || 0)}
+        <span className="ml-2 text-gray-600 dark:text-gray-400 text-xs">
+          ({averageRatings[course._id]?.ratingCount || 0} rating)
+        </span>
+      </div>
+      <div className="text-start">
+        <Link
+          to="/singlecourse"
+          onClick={() => handleReadMore(course)}
+          className="inline-flex items-center px-6 py-1 text-sm font-medium text-center text-white bg-sky-600 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          View Course
+        </Link>
+      </div>
+    </div>
+  </div>
+))}
+
       </div>
 
       {filteredCourses.length === 0 && (

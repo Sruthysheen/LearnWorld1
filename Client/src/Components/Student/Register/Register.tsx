@@ -75,6 +75,9 @@ const [loading, setLoading] = useState(false);
         console.log(response)
         if (response.status === 200) {
             navigate("/otp");}
+            else{
+              toast.error("Already existed User")
+            }
     } catch (error) {
         console.error("Registration error:", error);
     }

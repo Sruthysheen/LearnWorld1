@@ -27,6 +27,7 @@ import EnrollmentHistoryPage from '../Pages/Student/EnrollmentHistoryPage';
 import StudentWalletPage from '../Pages/Student/StudentWalletPage';
 import StudentViewQuizPage from '../Pages/Student/StudentViewQuizPage';
 import Pagenotfound from '../Components/Common/PageNotFound';
+import Room from '../Components/Tutor/VideoCall/Room';
 
 
 const StudentRouter = () => {
@@ -67,6 +68,7 @@ const StudentRouter = () => {
         <Route path="/wallet" element = {<StudentWalletPage/>} />
         <Route path="/student-view-quiz" element = {<StudentViewQuizPage/>} />
         <Route path="/student-chat/:tutorId/:chatId" element={<StudentChatPage/>} />
+        <Route path="/room/:roomId" element={<Room />} />
         
 
 

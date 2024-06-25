@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector} from "react-redux";
 import { format, parseISO } from 'date-fns';
 import { Link } from "react-router-dom";
 import { addToCart, addToWishlist } from "../../../Utils/config/axios.PostMethods";
 import { toast } from "sonner";
 import { getAllRatings } from "../../../Utils/config/axios.GetMethods";
+import { clearCourseDetails, setSingleCourseDetails } from "../../../Slices/tutorSlice/courseSlice";
+import { useDispatch } from "react-redux";
 
 
 interface RatingDocument {
@@ -43,6 +45,7 @@ const renderStarRating = (rating: number) => {
 
 
 function StudentSingleCourseView() {
+  const dispatch = useDispatch();
   const {student} = useSelector((state:any) => state.student);
   console.log(student,"--------------------------this is student");
   const studentId = student._id;
@@ -72,6 +75,9 @@ function StudentSingleCourseView() {
       videoRef.current.play();
     }
   }, [currentVideo]);
+
+
+
 
   const handleAddToCart = async () => {
     console.log(studentId, "----------studentId");

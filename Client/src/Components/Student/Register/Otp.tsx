@@ -28,6 +28,8 @@ const handleSubmit: any = async(event: any) =>{
       localStorage.setItem("Token",`${res.data.token}`);
       localStorage.setItem("isVerified",'true')
       navigate("/");
+    } else {
+      toast.error("Invalid OTP")
     }
     } catch (error) {
       localStorage.setItem("isVerified",'false')

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { enrolledStudents } from "../../../Utils/config/axios.GetMethods";
 import VideoCall from "../VideoCall/VideoCall";
 
@@ -19,7 +19,7 @@ interface studentDetails {
   }
 
 function EnrollStudents() {
-
+  const navigate = useNavigate()
   const [userDetails, setUserDetails] = useState<studentDetails[]>([]);
   const [studentsDetails, setStudentDetails] = useState<studentDetails[]>([]);
   const combinedDetails = [...userDetails, ...studentsDetails];
@@ -48,9 +48,10 @@ function EnrollStudents() {
     fetchStudents();
   },[])
 
-  // const handleVideoCall = () => {
-  //   Navigate(`/room/${tutorId}`);
-  // };
+ 
+  const handleVideoCall = () => {
+    navigate('/tutor/videocall');
+  };
 
   return (
     <div>
@@ -133,7 +134,7 @@ function EnrollStudents() {
       </div>
     </Link>
     <button
-            // onClick={handleVideoCall}
+            onClick={handleVideoCall}
             className="z-20 text-white flex flex-col shrink-0 grow-0 justify-around 
               fixed bottom-0 right-20 rounded-lg
               mr-1 mb-5 lg:mr-5 lg:mb-5 xl:mr-10 xl:mb-10"

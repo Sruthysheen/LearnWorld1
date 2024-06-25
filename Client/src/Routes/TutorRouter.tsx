@@ -22,6 +22,9 @@ import ChatPage from '../Pages/Student/ChatPage';
 import ViewQuizPage from '../Pages/Tutor/ViewQuizPage';
 import AddQuizPage from '../Pages/Tutor/AddQuizPage';
 import Pagenotfound from '../Components/Common/PageNotFound';
+import VideoCall from '../Components/Tutor/VideoCall/VideoCall';
+import Room from '../Components/Tutor/VideoCall/Room';
+
 
 const TutorRouter = () => {
     const location = useLocation();
@@ -51,6 +54,8 @@ const TutorRouter = () => {
                     <Route path="/view-quiz" element={<ViewQuizPage/>} />
                     <Route path="/add-quiz" element={<AddQuizPage/>} />
                     <Route path="/chat-box/:chatId" element={<ChatPage  />} />
+                    <Route path="/videoCall" element={<VideoCall />} />
+                    <Route path="/room/:roomId" element={<Room />} />
                 </Route>
                 <Route path="*" element={<Pagenotfound />} />
             </Routes> 
