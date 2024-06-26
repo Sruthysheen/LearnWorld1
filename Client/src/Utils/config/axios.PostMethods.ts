@@ -11,7 +11,7 @@ import { QuestionData } from "../../Components/Student/EnrolledCourse/StudentVie
 export const studentRegistration = async (registerPayload: registerStudent) => {
     const config: AxiosRequestConfig = {
         method:"POST",
-        url: `/student/register`,
+        url: `/api/student/register`,
         data: registerPayload,
     };
     return await apiRequest(config);
@@ -22,7 +22,7 @@ export const studentRegistration = async (registerPayload: registerStudent) => {
 export const OtpVerification = async (otp : string) =>{
     const config: AxiosRequestConfig = {
         method:"POST",
-        url: `/student/otp`,
+        url: `/api/student/otp`,
         data: {otp}
     }
     return await apiRequest(config);
@@ -33,7 +33,7 @@ export const OtpVerification = async (otp : string) =>{
     try {
         const config: AxiosRequestConfig = {
             method:"POST",
-            url: `/student/login`,
+            url: `/api/student/login`,
             data: loginPayload,
         };
         return await apiRequest(config);
@@ -48,7 +48,7 @@ export const OtpVerification = async (otp : string) =>{
     try {
         const config: AxiosRequestConfig = {
             method:"POST",
-            url:`/student/logout`,
+            url:`/api/student/logout`,
         };
         return await apiRequest(config);
     } catch (error) {
@@ -63,7 +63,7 @@ export const studentForgotPassword = async (forgetPasswordPayload: any) => {
   
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/student/forgotpassword`,
+    url: `/api/student/forgotpassword`,
     data: forgetPasswordPayload,
   };
   return await apiRequest(config);
@@ -74,7 +74,7 @@ export const studentForgotPassword = async (forgetPasswordPayload: any) => {
 export const studentForgotOtp = async (otp : string) =>{
   const config: AxiosRequestConfig = {
       method:"POST",
-      url: `/student/verifyforgototp`,
+      url: `/api/student/verifyforgototp`,
       data: {otp}
   }
   return await apiRequest(config);
@@ -87,7 +87,7 @@ export const studentNewPassword = async (newPassword: String) => {
 
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/student/newpassword`,
+    url: `/api/student/newpassword`,
     data: { newPassword },
   };
   return await apiRequest(config);
@@ -103,7 +103,7 @@ export const addToCart = async(studentId:string,courseId:string)=>{
 
     const config: AxiosRequestConfig ={
       method:"POST",
-      url: `/student/addtocart`,
+      url: `/api/student/addtocart`,
       data: data,
     }
     return await axiosInstance(config);
@@ -116,7 +116,7 @@ export const addToWishlist = async(studentId:string, courseId:string)=>{
   }
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/student/addtowishlist`,
+    url: `/api/student/addtowishlist`,
     data: data,
   }
   return await axiosInstance(config);
@@ -126,7 +126,7 @@ export const addToWishlist = async(studentId:string, courseId:string)=>{
 export const studentEditProfile = async(formData: FormData) => {
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/student/editprofile`,
+    url: `/api/student/editprofile`,
     headers: {
       'Content-Type': 'multipart/form-data'
     },
@@ -140,7 +140,7 @@ export const studentEditProfile = async(formData: FormData) => {
 export const stripePayment = async(cartItems:any)=>{
   const config: AxiosRequestConfig = {
     method:"POST",
-    url: `/student/stripepayment`,
+    url: `/api/student/stripepayment`,
     data: {cartItems},
   }
   return await apiRequest(config);
@@ -150,7 +150,7 @@ export const stripePayment = async(cartItems:any)=>{
 export const deleteCart = async (data: any) => {
   const config: AxiosRequestConfig = {
     method: "POST",
-    url:`/student/clear-cart`,
+    url:`/api/student/clear-cart`,
     data:data
   
   };
@@ -161,7 +161,7 @@ export const deleteCart = async (data: any) => {
 export const sendMessageFrom = async(tutorId: string, messages: string) =>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/chat/send-message`,
+    url: `/api/chat/send-message`,
     data: {
       userId: tutorId,
       message: messages,
@@ -175,7 +175,7 @@ export const sendMessageFrom = async(tutorId: string, messages: string) =>{
 export const cancelEnrolledCourse = async(courseId:string,studentId:string)=>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/student/cancel-course`,
+    url: `/api/student/cancel-course`,
     data:{
       courseId:courseId,
       studentId:studentId,
@@ -190,7 +190,7 @@ export const cancelEnrolledCourse = async(courseId:string,studentId:string)=>{
 export const updateWalletBalance = async(studentId: string, amount: number, cartItems: any[])=>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/student/update-balance`,
+    url: `/api/student/update-balance`,
     data:{
       studentId:studentId,
       amount:amount,
@@ -204,7 +204,7 @@ export const updateWalletBalance = async(studentId: string, amount: number, cart
 export const postReview = async(review:string,rating:number,courseId:string,studentId:string)=>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/student/post-review`,
+    url: `/api/student/post-review`,
     data:{
       review:review,
       rating:rating,
@@ -219,7 +219,7 @@ export const postReview = async(review:string,rating:number,courseId:string,stud
 export const studentProgress = async(courseId:string,studentId:string,lessonId:string)=>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/student/student-progress`,
+    url: `/api/student/student-progress`,
     data:{
       courseId:courseId,
       studentId:studentId,
@@ -237,7 +237,7 @@ export const studentProgress = async(courseId:string,studentId:string,lessonId:s
 export const adminLogin = async (loginPayload: loginAdmin)=>{
     const config: AxiosRequestConfig = {
         method: "POST",
-        url: `/admin/adminlogin`,
+        url: `/api/admin/adminlogin`,
         data: loginPayload,
       };
       return await apiRequest(config);
@@ -249,7 +249,7 @@ export const adminLogout = async () => {
     try {
       const config: AxiosRequestConfig = {
         method: "POST",
-        url: "/admin/adminlogout",
+        url: "/api/admin/adminlogout",
       };
       return await apiRequest(config);
     } catch (error) {
@@ -265,7 +265,7 @@ export const adminLogout = async () => {
     try {
       const config: AxiosRequestConfig = {
         method: "POST",
-        url: "/admin/adminaddcategory",
+        url: "/api/admin/adminaddcategory",
         data: categoryPayload,
       };
   
@@ -287,7 +287,7 @@ export const adminLogout = async () => {
       };
       const config: AxiosRequestConfig = {
         method: "POST",
-        url: "/admin/editcategory",
+        url: "/api/admin/editcategory",
         data: data,
       };
   
@@ -311,7 +311,7 @@ export const adminLogout = async () => {
     try {
         const config: AxiosRequestConfig ={
             method: "POST",
-            url: `/tutor/tutorregister`,
+            url: `/api/tutor/tutorregister`,
             data: registerPayload
         }
         return await apiRequest(config)
@@ -324,7 +324,7 @@ export const adminLogout = async () => {
  export const OtpVerificationTutor = async (otp : string) =>{
     const config: AxiosRequestConfig = {
         method:"POST",
-        url: `/tutor/tutorotp`,
+        url: `/api/tutor/tutorotp`,
         data: {otp}
     }
     return await apiRequest(config);
@@ -336,7 +336,7 @@ export const tutorLogin = async (loginPayload: loginTutor) =>{
   try {
    const config: AxiosRequestConfig = {
        method: "POST",
-       url: `/tutor/tutorlogin`,
+       url: `/api/tutor/tutorlogin`,
        data: loginPayload,
      }
      return await apiRequest(config)
@@ -352,7 +352,7 @@ export const tutorForgotPassword = async (forgetPasswordPayload: any) => {
   
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/tutor/tutorforgotpassword`,
+    url: `/api/tutor/tutorforgotpassword`,
     data: forgetPasswordPayload,
   };
   return await apiRequest(config);
@@ -363,7 +363,7 @@ export const tutorForgotPassword = async (forgetPasswordPayload: any) => {
 export const tutorForgotOtp = async (otp : string) =>{
   const config: AxiosRequestConfig = {
       method:"POST",
-      url: `/tutor/verifyforgototptutor`,
+      url: `/api/tutor/verifyforgototptutor`,
       data: {otp}
   }
   return await apiRequest(config);
@@ -376,7 +376,7 @@ export const tutorNewPassword = async (newPassword: String) => {
 
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/tutor/tutornewpassword`,
+    url: `/api/tutor/tutornewpassword`,
     data: { newPassword },
   };
   return await apiRequest(config);
@@ -389,7 +389,7 @@ export const tutorLogout = async () => {
   try {
     const config: AxiosRequestConfig = {
       method: "POST",
-      url: "/tutor/tutorlogout",
+      url: "/api/tutor/tutorlogout",
      
     };
 
@@ -423,7 +423,7 @@ export const tutorLogout = async () => {
 export const editTutorProfile = async(formData:FormData)=>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/tutor/edit-Profile`,
+    url: `/api/tutor/edit-Profile`,
     headers: {
       'Content-Type': 'multipart/form-data'
     },
@@ -436,7 +436,7 @@ export const editTutorProfile = async(formData:FormData)=>{
 export const addNewCourse = async(formData:FormData)=>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/tutor/addnewcourse`,
+    url: `/api/tutor/addnewcourse`,
     headers: {
       'Content-Type': 'multipart/form-data'
     },
@@ -450,7 +450,7 @@ export const addNewCourse = async(formData:FormData)=>{
 export const editCourse = async(formData:FormData,courseId:string)=>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/tutor/editcourse/${courseId}`,
+    url: `/api/tutor/editcourse/${courseId}`,
     headers: {
       'Content-Type': 'multipart/form-data'
     },
@@ -464,7 +464,7 @@ export const editCourse = async(formData:FormData,courseId:string)=>{
 export const addLesson = async(formData:FormData)=>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/tutor/addlesson`,
+    url: `/api/tutor/addlesson`,
     headers: {
       'Content-Type': 'multipart/form-data'
     },
@@ -477,7 +477,7 @@ export const addLesson = async(formData:FormData)=>{
 export const editLesson = async(formData:FormData,lessonId:string)=>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/tutor/editlesson/${lessonId}`,
+    url: `/api/tutor/editlesson/${lessonId}`,
     headers: {
       'Content-Type': 'multipart/form-data'
     },
@@ -492,7 +492,7 @@ export const editLesson = async(formData:FormData,lessonId:string)=>{
 export const postQuiz = async (quizData: QuestionData[]) => {
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/tutor/add-quiz`,
+    url: `/api/tutor/add-quiz`,
     data: quizData,
   };
   return await axiosInstance(config);
@@ -503,7 +503,7 @@ export const postQuiz = async (quizData: QuestionData[]) => {
 export const createConversation=async(data:any)=>{
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: `/chat/createConversation`,
+    url: `/api/chat/createConversation`,
     data: data
   }
   return await axiosInstance(config);
@@ -515,7 +515,7 @@ export const createConversation=async(data:any)=>{
 export const getUserMessages = async (data: any) => {
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: "/chat/getUserMessages",
+    url: "/api/chat/getUserMessages",
     data: data,
   };
   return await axiosInstance(config);

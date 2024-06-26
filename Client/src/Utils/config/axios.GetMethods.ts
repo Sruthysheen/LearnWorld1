@@ -8,7 +8,7 @@ export const resendOtp = async() => {
     try {
       const config: AxiosRequestConfig = {
         method: "GET",
-        url: '/student/resendotp',
+        url: '/api/student/resendotp',
        
       }
       return await apiRequest(config)
@@ -23,7 +23,7 @@ export const resendOtp = async() => {
     try {
       const config: AxiosRequestConfig = {
         method: "GET",
-        url: '/student/otpExpiry',
+        url: '/api/student/otpExpiry',
        
       }
       return await apiRequest(config)
@@ -37,7 +37,7 @@ export const resendOtp = async() => {
   export const googleAuthVerification = async (emailPayload: string) => {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/student/firebaseAuthVerify?email=${emailPayload}`,
+      url: `/api/student/firebaseAuthVerify?email=${emailPayload}`,
     };
     return await apiRequest(config);
   };
@@ -47,7 +47,7 @@ export const resendOtp = async() => {
     try {
       const config: AxiosRequestConfig = {
         method: "GET",
-        url:"/student/getcourses"
+        url:"/api/student/getcourses"
       }
       return await apiRequest(config)
     } catch (error) {
@@ -58,7 +58,7 @@ export const resendOtp = async() => {
   export const getCartItems = async(studentId:any)=>{
     const config = {
       method: "GET",
-      url: `/student/cart/${studentId}`,
+      url: `/api/student/cart/${studentId}`,
     }; 
     return await axiosInstance(config);
   };
@@ -67,7 +67,7 @@ export const resendOtp = async() => {
   export const getWishlistItems = async(studentId:any)=>{
     const config = {
       method: "GET",
-      url: `/student/wishlist/${studentId}`,
+      url: `/api/student/wishlist/${studentId}`,
     };
     return await axiosInstance(config);
   };
@@ -76,7 +76,7 @@ export const resendOtp = async() => {
 export const fetchCategory = async(categoryId:string)=>{
   const config = {
     method: "GET",
-    url: `student/get-category/${categoryId}`,
+    url: `/api/student/get-category/${categoryId}`,
   }
   return await axiosInstance(config);
   
@@ -86,7 +86,7 @@ export const fetchCategory = async(categoryId:string)=>{
 export const enrolledCourse = async(studentId:string)=>{
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/student/enrolled-course/${studentId}`,
+    url: `/api/student/enrolled-course/${studentId}`,
   }
   return await axiosInstance(config);
 }
@@ -96,7 +96,7 @@ export const enrolledCourse = async(studentId:string)=>{
 export const getAllCatagoryStudent=async()=>{
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/student/get-category`,
+    url: `/api/student/get-category`,
   };
   return await axiosInstance(config);
   
@@ -106,7 +106,7 @@ export const getAllCatagoryStudent=async()=>{
 export const getBalance = async(studentId:string)=>{
   const config: AxiosRequestConfig = {
     method:"GET",
-    url: `/student/wallet-balance/${studentId}`
+    url: `/api/student/wallet-balance/${studentId}`
   }
   return await axiosInstance(config);
 }
@@ -115,7 +115,7 @@ export const getBalance = async(studentId:string)=>{
 export const getTransactions = async(studentId:string)=>{
   const config: AxiosRequestConfig = {
     method:"GET",
-    url: `/student/wallet-transactions/${studentId}`
+    url: `/api/student/wallet-transactions/${studentId}`
   }
   return await axiosInstance(config);
 }
@@ -124,7 +124,7 @@ export const getTransactions = async(studentId:string)=>{
 export const getRating = async(courseId:string,studentId:string)=>{
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/student/get-rating/${courseId}/${studentId}`,
+    url: `/api/student/get-rating/${courseId}/${studentId}`,
   }
   return await axiosInstance(config)
 }
@@ -133,7 +133,7 @@ export const getRating = async(courseId:string,studentId:string)=>{
 export const getAllRatings = async(courseId:string)=>{
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/student/all-ratings/${courseId}`
+    url: `/api/student/all-ratings/${courseId}`
   }
   return await axiosInstance(config)
 }
@@ -143,7 +143,7 @@ export const getAllRatings = async(courseId:string)=>{
 export const fetchQuizzesByCourse = async(courseId:string)=>{
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/student/student-view-quiz/${courseId}`
+    url: `/api/student/student-view-quiz/${courseId}`
   }
   return await axiosInstance(config)
 }
@@ -152,7 +152,7 @@ export const fetchQuizzesByCourse = async(courseId:string)=>{
 export const getAverageRatings = async()=>{
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/student/get-average-rating`
+    url: `/api/student/get-average-rating`
   }
   return await axiosInstance(config)
 }
@@ -161,7 +161,7 @@ export const getAverageRatings = async()=>{
 export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/student/get-progress/${courseId}/${studentId}`
+    url: `/api/student/get-progress/${courseId}/${studentId}`
   }
   return await axiosInstance(config)
 }
@@ -172,7 +172,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
     try {
       const config: AxiosRequestConfig = {
         method: "GET",
-        url: '/tutor/resendotp',
+        url: '/api/tutor/resendotp',
        
       }
       return await apiRequest(config)
@@ -185,7 +185,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
     try {
       const config: AxiosRequestConfig = {
         method: "GET",
-        url: '/tutor/otpExpiry',
+        url: '/api/tutor/otpExpiry',
        
       }
       return await apiRequest(config)
@@ -198,7 +198,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const tutorGoogleAuthVerification = async (emailPayload: string,name:any) => {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/tutor/firebaseAuthVerify?email=${emailPayload}&&name=${name}`,
+      url: `/api/tutor/firebaseAuthVerify?email=${emailPayload}&&name=${name}`,
     };
     return await apiRequest(config);
   };
@@ -208,7 +208,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const getTutorBio = async (tutorId: any) => {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/tutor/tutorProfile/${tutorId}`,
+      url: `/api/tutor/tutorProfile/${tutorId}`,
     };
     return await apiRequest(config);
   };
@@ -218,7 +218,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const getAllCourses = async (tutorId : any ) =>{
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/tutor/getallcourse/${tutorId}`,
+      url: `/api/tutor/getallcourse/${tutorId}`,
     }
     return await axiosInstance(config);
   }
@@ -229,7 +229,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const getAllCatagoryTutor=async()=>{
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/tutor/get-category`,
+      url: `/api/tutor/get-category`,
     };
     return await axiosInstance(config);
     
@@ -242,7 +242,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
     
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/chat/fetch-chat?id=${chatId}`,
+      url: `/api/chat/fetch-chat?id=${chatId}`,
     }
     return await axiosInstance(config);
   }
@@ -252,7 +252,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
     
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/chat/fetch-tutor-chat?id=${chatId}`,
+      url: `/api/chat/fetch-tutor-chat?id=${chatId}`,
     }
     return await axiosInstance(config);
   }
@@ -261,7 +261,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const getTutor = async(tutorId:any)=>{
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/student/get-tutor/${tutorId}`
+      url: `/api/student/get-tutor/${tutorId}`
     }
     return await axiosInstance(config)
   }
@@ -270,7 +270,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const enrolledStudents = async(tutorId:string)=>{
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/tutor/enrolled-students/${tutorId}`
+      url: `/api/tutor/enrolled-students/${tutorId}`
     }
     return await axiosInstance(config)
   }
@@ -278,7 +278,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const getUserProfile = async (studentId: any) => {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/tutor/user-profile/${studentId}`,
+      url: `/api/tutor/user-profile/${studentId}`,
     };
     return await axiosInstance(config);
   };
@@ -287,7 +287,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const studentTutorListing = async () => {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/student/tutor-list`,
+      url: `/api/student/tutor-list`,
     };
     return await axiosInstance(config);
   };
@@ -296,7 +296,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const getSingleCourse = async (courseId:string) => {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/tutor/single-course/${courseId}`,
+      url: `/api/tutor/single-course/${courseId}`,
     };
     return await axiosInstance(config);
   };
@@ -305,7 +305,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const fetchQuizzesByCourseAndTutor = async (courseId: string, tutorId: string) => {
     const config: AxiosRequestConfig = {
       method: 'GET',
-      url: `/tutor/view-quiz/${courseId}/${tutorId}`
+      url: `/api/tutor/view-quiz/${courseId}/${tutorId}`
     };
     return await axiosInstance(config);
   };
@@ -317,7 +317,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const adminListAllStudents = async () => {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/admin/adminstudent`,
+      url: `/api/admin/adminstudent`,
     };
     return await axiosInstance(config);
   };
@@ -327,7 +327,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const adminListAllTutors = async () => {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/admin/admintutor`,
+      url: `/api/admin/admintutor`,
     };
     return await axiosInstance(config);
   };
@@ -344,7 +344,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
   export const adminListCategory = async () => {
     const config: AxiosRequestConfig = {
       method: "GET",
-      url: `/admin/admincategory`
+      url: `/api/admin/admincategory`
     }
     return await axiosInstance(config)
   };
@@ -354,7 +354,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
     try {
       const config: AxiosRequestConfig = {
         method: "GET",
-        url: `/admin/getcategoryid/${id}`
+        url: `/api/admin/getcategoryid/${id}`
       };
       return await axiosInstance(config);
     } catch (error) {
@@ -367,7 +367,7 @@ export const getAllCatagory=async()=>{
   
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/admin/admincategory`,
+    url: `/api/admin/admincategory`,
   };
   return await axiosInstance(config);
   
@@ -377,7 +377,7 @@ export const getAllCatagory=async()=>{
 export const getAllCourseForAdmin = async()=>{
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/admin/all-courses`
+    url: `/api/admin/all-courses`
   }
   return await axiosInstance(config);
 }
@@ -386,7 +386,7 @@ export const getAllCourseForAdmin = async()=>{
 export const getTotalRevenue =async()=>{
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/admin/total-revenue`
+    url: `/api/admin/total-revenue`
   }
   return await axiosInstance(config)
 }
@@ -394,7 +394,7 @@ export const getTotalRevenue =async()=>{
 export const getAllOrders =async()=>{
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: `/admin/get-orders`
+    url: `/api/admin/get-orders`
   }
   return await axiosInstance(config)
 }

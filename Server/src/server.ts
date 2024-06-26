@@ -149,10 +149,10 @@ app.use(nocache());
 app.use(morgan('tiny'));
 connectDb.connect();
 
-app.use('/student', studentRouter);
-app.use('/tutor', tutorRouter);
-app.use('/admin', adminRouter);
-app.use('/chat', chatRouter);
+app.use('/api/student', studentRouter);
+app.use('/api/tutor', tutorRouter);
+app.use('/api/admin', adminRouter);
+app.use('/api/chat', chatRouter);
 
 
 

@@ -119,8 +119,8 @@ app.use((0, cors_1.default)({
 app.use((0, nocache_1.default)());
 app.use((0, morgan_1.default)('tiny'));
 db_1.default.connect();
-app.use('/student', studentRouter_1.studentRouter);
-app.use('/tutor', tutorRouter_1.tutorRouter);
-app.use('/admin', adminRouter_1.adminRouter);
-app.use('/chat', chatRouter_1.default);
+app.use('/api/student', studentRouter_1.studentRouter);
+app.use('/api/tutor', tutorRouter_1.tutorRouter);
+app.use('/api/admin', adminRouter_1.adminRouter);
+app.use('/api/chat', chatRouter_1.default);
 app.listen(port, () => console.log(`server is ruunig at port ${port}`));
