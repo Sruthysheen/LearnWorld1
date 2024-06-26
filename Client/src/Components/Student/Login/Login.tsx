@@ -236,7 +236,7 @@ function Login() {
           </div>
         </div>
         <div className="hidden md:w-1/3 rounded-r-lg rounded-l-lg sm:flex justify-center items-center bg-sky-800" >
-                <img src="/tutor.png-removebg-preview.png" className='w-96 h-96 z-20 fixed' alt="" />
+                <img src="/tutor.png" className='w-96 h-96 z-20 fixed' alt="" />
           </div>
       </div>
     </div>
