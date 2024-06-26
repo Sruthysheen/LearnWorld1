@@ -63,7 +63,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-require("dotenv/config");
+// import "dotenv/config";
 var dotenv_1 = __importDefault(require("dotenv"));
 var db_1 = __importDefault(require("../config/db"));
 var express_session_1 = __importStar(require("express-session"));

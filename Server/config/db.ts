@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const dbName = 'LearnWorld';
-const dbUrl = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.3'
+const dbUrl = process.env.MONGO_URL
 
 const connectToDb = {
     connect: ()=>{

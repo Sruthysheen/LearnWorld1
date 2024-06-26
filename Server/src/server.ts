@@ -1,5 +1,5 @@
 import express , {Express} from "express";
-import "dotenv/config";
+// import "dotenv/config";
 import dotenv from 'dotenv'
 import connectDb from "../config/db";
 import session, { SessionOptions,MemoryStore,SessionData } from "express-session"
