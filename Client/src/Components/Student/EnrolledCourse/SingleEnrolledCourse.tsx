@@ -260,7 +260,7 @@ const navigate =useNavigate()
             {/* </Link> */}
        
             <div className="flex flex-col md:flex-row items-center bg-cover bg-center overflow-auto"
-                style={{ backgroundImage: 'url(/public/BG2.png)' }}>
+                style={{ backgroundImage: 'url(/BG2.png)' }}>
                 <div className="w-full md:w-1/2 py-5 md:py-10 px-5 md:px-10 text-center md:text-left text-sky-800">
                     <h1 className="text-2xl md:text-5xl font-medium mb-4">{courseDetails?.courseId?.courseName}</h1>
                     <p className="text-base md:text-md mb-4">{courseDetails?.courseId?.courseDescription}</p>
@@ -396,7 +396,7 @@ const navigate =useNavigate()
         <div className="relative bg-white p-10 rounded-lg max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-semibold mb-4 text-sky-800">Certificate of Completion</h2>
             <div id="certificate" className="bg-sky-100 p-6 rounded-lg text-sky-800">
-                <img src="\public\Logo.png" alt="Logo" className="mx-auto mb-2" /> {/* Reduced margin-bottom here */}
+                <img src="\Logo.png" alt="Logo" className="mx-auto mb-2" /> {/* Reduced margin-bottom here */}
                 <h3 className="mb-1">LearnWorld</h3> {/* Adjust margin-bottom as needed here */}
                 <h3 className="text-2xl font-bold">Certificate of Completion</h3>
                 <p className="mt-4">This is to certify that</p>

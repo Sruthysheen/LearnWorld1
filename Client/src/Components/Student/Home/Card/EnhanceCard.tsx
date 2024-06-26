@@ -11,19 +11,19 @@ function EnhanceCard() {
         {/* Repeatable Card Component */}
         {[
           {
-            image: "public/CardImg4.jpg",
+            image: "/CardImg4.jpg",
             title: "Expert Instruction: Empowering Excellence Through Expert Instruction."
           },
           {
-            image: "public/CardImg3.png",
+            image: "/CardImg3.png",
             title: "Video Tutorials : Dive into the World of Video Tutorials."
           },
           {
-            image: "public/CardImg2.jpg",
+            image: "/CardImg2.jpg",
             title: "Lifetime Access : Your Journey to Lifelong Learning Begins Here!"
           },
           {
-            image: "public/certificate3.jpg",
+            image: "/certificate3.jpg",
             title: "Global Certificate: Elevate Your Skills, Anywhere in the World!"
           }
         ].map((card, index) => (

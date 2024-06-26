@@ -111,7 +111,7 @@ function StudentWallet() {
                 <h2 className="text-4xl font-bold text-sky-600">₹{balance}</h2>
               </div>
               <img
-                src="/public/Wallet4.png"
+                src="/Wallet4.png"
                 alt="wallet"
                 className="h-32 w-38"
               />

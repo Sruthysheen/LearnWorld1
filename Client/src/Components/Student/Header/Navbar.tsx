@@ -72,7 +72,7 @@ function Navbar() {
           <div>
             <a href="#" className="flex items-center py-4 px-2">
               <img
-                src="/public/Logo.png"
+                src="/Logo.png"
                 alt="Logo"
                 className="rounded-full h-8 w-8 mr-2"
               />
@@ -153,7 +153,7 @@ function Navbar() {
                     {student && student.photo ? (
                       <img src={student.photo} alt="Profile" className="h-8 w-8 rounded-full" />
                     ) : (
-                      <img src="/public/Profile.jpg" alt="Profile" className="h-8 w-8 rounded-full" />
+                      <img src="/Profile.jpg" alt="Profile" className="h-8 w-8 rounded-full" />
                     )}
                   </button>
                   {showProfileDropdown && (

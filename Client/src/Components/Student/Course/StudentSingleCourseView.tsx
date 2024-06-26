@@ -147,7 +147,7 @@ function StudentSingleCourseView() {
   return (
     <>
       <div className="flex flex-col md:flex-row items-center bg-cover bg-center overflow-auto"
-           style={{ backgroundImage: 'url(/public/BG2.png)' }}>
+           style={{ backgroundImage: 'url(/BG2.png)' }}>
         <div className="w-full md:w-1/2 py-5 md:py-10 px-5 md:px-10 text-center md:text-left text-sky-800 -mt-6">
           <h1 className="text-2xl md:text-5xl font-medium mb-4">{courseDetails.courseName}</h1>
           <p className="text-base md:text-md mb-4">{courseDetails.courseDescription}</p>

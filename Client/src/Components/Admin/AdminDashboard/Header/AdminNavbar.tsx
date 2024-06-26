@@ -50,7 +50,7 @@ function AdminNavbar() {
           <div className='flex justify-start items-center'>
           
               <img
-                src="/public/Logo.png"
+                src="/Logo.png"
                 alt="Logo"
                 className="rounded-full h-8 w-8 mr-2"
               />

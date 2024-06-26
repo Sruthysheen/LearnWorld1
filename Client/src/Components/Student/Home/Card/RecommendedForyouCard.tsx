@@ -7,7 +7,7 @@ const courses = [
     tutor: "Pete Jepson",
     priceOriginal: "₹ 1000",
     priceSale: "₹ 700",
-    image: "public/Html.png",
+    image: "/Html.png",
     rating: "4.5 Star"
   },
   {
@@ -15,7 +15,7 @@ const courses = [
     tutor: "Meera K S",
     priceOriginal: "₹ 1200",
     priceSale:"₹ 800",
-    image: "public/Sql.webp",
+    image: "/Sql.webp",
     rating: "4.8 Stars"
   },
   {
@@ -23,7 +23,7 @@ const courses = [
     tutor: "Anu Joseph",
     priceOriginal: "₹ 1100",
     priceSale: "₹ 650",
-    image: "public/Swift1.jpg",
+    image: "/Swift1.jpg",
     rating: "4.9 Stars"
   },
   {
@@ -40,7 +40,7 @@ const courses = [
     tutor: "Alexander",
     priceOriginal: "₹ 900",
     priceSale: "₹ 600",
-    image: "public/React.jpg",
+    image: "/React.jpg",
     rating: "4.7 Stars"
   },
   {
@@ -48,7 +48,7 @@ const courses = [
     tutor: "Rosel",
     priceOriginal: "₹ 900",
     priceSale: "₹ 600",
-    image: "public/js.jpg",
+    image: "/js.jpg",
     rating: "4.7 Stars"
   },
   {
@@ -56,7 +56,7 @@ const courses = [
     tutor: "Joseph",
     priceOriginal: "₹ 900",
     priceSale: "₹ 600",
-    image: "public/Android.webp",
+    image: "/Android.webp",
     rating: "4.7 Stars"
   },
   {
@@ -64,7 +64,7 @@ const courses = [
     tutor: "Emanual",
     priceOriginal: "₹ 900",
     priceSale: "₹ 600",
-    image: "public/Flutter.jpg",
+    image: "/Flutter.jpg",
     rating: "4.7 Stars"
   },
 ];

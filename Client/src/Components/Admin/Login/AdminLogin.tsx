@@ -44,7 +44,7 @@ function AdminLogin() {
       <div
         className="container mx-auto p-4 w-screen h-screen fixed"
         style={{
-          backgroundImage: "url('/public/BgImage4.jpg')",
+          backgroundImage: "url('/BgImage4.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

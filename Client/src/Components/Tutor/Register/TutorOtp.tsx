@@ -73,7 +73,7 @@ const dispatch=useDispatch()
      <>
      <div className="bg-gradient-to-b from-blue-300 h-screen w-screen">
      <div className="absolute top-3 left-0 flex items-center" style={{ paddingLeft: '3rem' }}>
-  <img src="/public/Logo.png" alt="Logo" className="w-8 h-8 mr-2" />
+  <img src="/Logo.png" alt="Logo" className="w-8 h-8 mr-2" />
   <p className="text-2xl text-sky-700 font-medium">LearnWorld</p>
 </div>
       <div className="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
@@ -132,7 +132,7 @@ const dispatch=useDispatch()
             className="hidden md:block md:w-1/2 rounded-r-lg"
             style={{
               background:
-                'url("/public/1582bef8a36e72984a12ffe913124ce0.jpg")',
+                'url("/1582bef8a36e72984a12ffe913124ce0.jpg")',
               backgroundSize: "auto",
               backgroundPosition: "center center"
             }}

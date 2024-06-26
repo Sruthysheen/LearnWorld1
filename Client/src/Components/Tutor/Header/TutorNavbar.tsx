@@ -44,7 +44,7 @@ function TutorNavbar() {
         <div className="flex space-x-7">
           <div>
             <a href="#" className="flex items-center py-4 px-2">
-              <img src="/public/Logo.png" alt="Logo" className="rounded-full h-8 w-8 mr-2" />
+              <img src="/Logo.png" alt="Logo" className="rounded-full h-8 w-8 mr-2" />
               <span className="font-semibold text-sky-800 text-2xl">LearnWorld</span>
             </a>
           </div>
@@ -82,7 +82,7 @@ function TutorNavbar() {
                     {tutor && tutor.photo ? (
                       <img src={tutor.photo} alt="Profile" className="h-8 w-8 rounded-full" />
                     ) : (
-                      <img src="/public/Profile.jpg" alt="Profile" className="h-8 w-8 rounded-full" />
+                      <img src="/Profile.jpg" alt="Profile" className="h-8 w-8 rounded-full" />
                     )}
                   </button>
                   {showProfileDropdown && (

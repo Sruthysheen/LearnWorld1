@@ -26,7 +26,7 @@ function HeroTutor() {
               <img
                 className="object-cover object-center rounded-xl"
                 alt="hero"
-                src="/public/Tutor31.PNG"
+                src="/Tutor31.PNG"
               />
             </div>
           </div>

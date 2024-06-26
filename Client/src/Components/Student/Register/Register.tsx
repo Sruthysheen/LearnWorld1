@@ -98,7 +98,7 @@ const [loading, setLoading] = useState(false);
     <div className="bg-gradient-to-b from-indigo-200 h-screen w-screen fixed">
     {loading && <LoadingSpinner />}
     <div className="absolute top-3 left-0 flex items-center" style={{ paddingLeft: '3rem' }}>
-  <img src="public/Logo.png" alt="Logo" className="w-8 h-8 mr-2" />
+  <img src="/Logo.png" alt="Logo" className="w-8 h-8 mr-2" />
   <p className="text-2xl text-sky-800 font-medium">LearnWorld</p>
 </div>
       <div className="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
@@ -256,7 +256,7 @@ const [loading, setLoading] = useState(false);
             </div>
           </div>
           <div className="hidden md:w-1/3 rounded-r-lg rounded-l-lg sm:flex justify-center items-center bg-sky-800" >
-                <img src="./public/tutor.png-removebg-preview.png" className='w-96 h-96 z-20 fixed' alt="" />
+                <img src=".//tutor.png-removebg-preview.png" className='w-96 h-96 z-20 fixed' alt="" />
           </div>
 
           

@@ -86,7 +86,7 @@ useEffect(() => {
     {/* component */}
     <div className="bg-gradient-to-b from-indigo-200 h-screen w-screen">
     <div className="absolute top-3 left-0 flex items-center" style={{ paddingLeft: '3rem' }}>
-  <img src="public/Logo.png" alt="Logo" className="w-8 h-8 mr-2" />
+  <img src="/Logo.png" alt="Logo" className="w-8 h-8 mr-2" />
   <p className="text-2xl text-sky-800 font-medium">LearnWorld</p>
 </div>
       <div className="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
@@ -98,7 +98,7 @@ useEffect(() => {
             className="hidden md:block md:w-1/2 rounded-r-lg"
             style={{
               background:
-                'url("public/7cc6371b12bdcae59e0cd65dd669ab5e.jpg")',
+                'url("/7cc6371b12bdcae59e0cd65dd669ab5e.jpg")',
               backgroundSize: "auto",
               backgroundPosition: "center center"
             }}
