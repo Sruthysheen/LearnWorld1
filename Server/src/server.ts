@@ -42,6 +42,7 @@ declare module 'express-session'{
     }
 }
 
+console.log(process.env.PORT,'port number in the env')
 const io:Server = require('socket.io')(5001, {
     cors: { origin: "http://localhost:5173" }
   });

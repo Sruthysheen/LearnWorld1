@@ -81,6 +81,7 @@ var app = (0, express_1.default)();
 var port = Number(process.env.PORT);
 var server = http_1.default.createServer(app);
 var store = new express_session_1.MemoryStore();
+console.log(process.env.PORT, 'port number in the env');
 var io = require('socket.io')(5001, {
     cors: { origin: "http://localhost:5173" }
 });
