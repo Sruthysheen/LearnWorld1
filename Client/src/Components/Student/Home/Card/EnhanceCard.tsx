@@ -23,7 +23,7 @@ function EnhanceCard() {
             title: "Lifetime Access : Your Journey to Lifelong Learning Begins Here!"
           },
           {
-            image: "/certificate3.jpg",
+            image: "/Certificate3.jpg",
             title: "Global Certificate: Elevate Your Skills, Anywhere in the World!"
           }
         ].map((card, index) => (

@@ -48,7 +48,7 @@ const courses = [
     tutor: "Rosel",
     priceOriginal: "₹ 900",
     priceSale: "₹ 600",
-    image: "/js.jpg",
+    image: "/JS.jpg",
     rating: "4.7 Stars"
   },
   {
