@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendMail = void 0;
-var nodemailer_1 = __importDefault(require("nodemailer"));
-var dotenv_1 = __importDefault(require("dotenv"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
+const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-var transporter = nodemailer_1.default.createTransport({
+const transporter = nodemailer_1.default.createTransport({
     service: "gmail",
     port: 587,
     secure: false,
@@ -17,18 +17,18 @@ var transporter = nodemailer_1.default.createTransport({
         pass: process.env.AUTH_PASS
     },
 });
-var sendMail = function (receiverMail, res) {
-    var otp = parseInt((Math.random() * 1000000).toString(), 10);
-    var appState = otp;
+const sendMail = (receiverMail, res) => {
+    const otp = parseInt((Math.random() * 1000000).toString(), 10);
+    const appState = otp;
     console.log(otp, '/000000');
-    var mailInfo = {
+    const mailInfo = {
         from: process.env.AUTH_EMAIL,
         to: receiverMail,
         subject: "Verify your account",
-        html: "<h3>Your OTP is</h3><h1 style='font-weight:bold;'>".concat(otp, "</h1>"),
+        html: `<h3>Your OTP is</h3><h1 style='font-weight:bold;'>${otp}</h1>`,
         text: "A simple message in text format"
     };
-    transporter.sendMail(mailInfo, function (error) {
+    transporter.sendMail(mailInfo, (error) => {
         if (error) {
             res.status(500).json({ message: "Email sending failed" });
         }

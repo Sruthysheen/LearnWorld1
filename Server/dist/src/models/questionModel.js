@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = require("mongoose");
-var optionSchema = new mongoose_1.Schema({
+const mongoose_1 = require("mongoose");
+const optionSchema = new mongoose_1.Schema({
     optionText: { type: String, required: true },
     isCorrect: { type: Boolean, required: true },
 });
-var questionSchema = new mongoose_1.Schema({
+const questionSchema = new mongoose_1.Schema({
     courseId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "courseModel",
@@ -19,5 +19,5 @@ var questionSchema = new mongoose_1.Schema({
     questionText: { type: String, required: true },
     options: [optionSchema],
 });
-var Question = (0, mongoose_1.model)("Question", questionSchema);
+const Question = (0, mongoose_1.model)("Question", questionSchema);
 exports.default = Question;

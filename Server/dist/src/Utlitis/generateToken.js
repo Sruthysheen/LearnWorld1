@@ -4,18 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateRefreshToken = exports.generateAccessToken = void 0;
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 require("dotenv/config");
-var generateAccessToken = function (student_id) {
-    var token = jsonwebtoken_1.default.sign({ student_id: student_id }, process.env.JWT_SECRET, {
+const generateAccessToken = (student_id) => {
+    const token = jsonwebtoken_1.default.sign({ student_id }, process.env.JWT_SECRET, {
         expiresIn: "30d",
     });
     console.log("token", token);
     return token;
 };
 exports.generateAccessToken = generateAccessToken;
-var generateRefreshToken = function (student_id) {
-    var token = jsonwebtoken_1.default.sign({ student_id: student_id }, process.env.JWT_REFRESHSECRET, {
+const generateRefreshToken = (student_id) => {
+    const token = jsonwebtoken_1.default.sign({ student_id }, process.env.JWT_REFRESHSECRET, {
         expiresIn: "50s",
     });
     console.log("token", token);

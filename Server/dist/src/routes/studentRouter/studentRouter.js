@@ -4,14 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.studentRouter = void 0;
-var express_1 = __importDefault(require("express"));
-var studentRouter = express_1.default.Router();
+const express_1 = __importDefault(require("express"));
+const studentRouter = express_1.default.Router();
 exports.studentRouter = studentRouter;
-var studentController_1 = require("../../controller/studentController/studentController");
-var authMiddleware_1 = require("../../middleware/authMiddleware");
-var upload_1 = __importDefault(require("../../multer/upload"));
-var tutorController_1 = require("../../controller/tutorController/tutorController");
-studentRouter.get("/", function (req, res) {
+const studentController_1 = require("../../controller/studentController/studentController");
+const authMiddleware_1 = require("../../middleware/authMiddleware");
+const upload_1 = __importDefault(require("../../multer/upload"));
+const tutorController_1 = require("../../controller/tutorController/tutorController");
+studentRouter.get("/", (req, res) => {
     res.json({ status: true });
 });
 studentRouter.post("/register", studentController_1.studentRegistration);
@@ -50,7 +50,7 @@ studentRouter.get('/get-average-rating', studentController_1.getAverageRatings);
 studentRouter.post('/student-progress', authMiddleware_1.isAuth, studentController_1.updatedProgress);
 studentRouter.get('/get-progress/:courseId/:studentId', authMiddleware_1.isAuth, studentController_1.fetchProgress);
 studentRouter.post("/logout", studentController_1.studentLogout);
-studentRouter.get('/test', authMiddleware_1.isAuth, function (req, res) {
+studentRouter.get('/test', authMiddleware_1.isAuth, (req, res) => {
     res.status(200).json({ message: "Hello" });
 });
 studentRouter.post("/refresh", studentController_1.refreshTokenCreation);

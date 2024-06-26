@@ -23,8 +23,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = __importStar(require("mongoose"));
-var chatSchema = new mongoose_1.Schema({
+const mongoose_1 = __importStar(require("mongoose"));
+const chatSchema = new mongoose_1.Schema({
     participants: [
         {
             userId: {
@@ -51,5 +51,5 @@ var chatSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
-var ChatModel = (0, mongoose_1.model)('Chat', chatSchema);
+const ChatModel = (0, mongoose_1.model)('Chat', chatSchema);
 exports.default = ChatModel;

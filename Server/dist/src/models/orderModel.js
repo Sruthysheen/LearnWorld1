@@ -23,8 +23,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = __importStar(require("mongoose"));
-var orderSchema = new mongoose_1.Schema({
+const mongoose_1 = __importStar(require("mongoose"));
+const orderSchema = new mongoose_1.Schema({
     studentId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         required: true,
@@ -64,5 +64,5 @@ var orderSchema = new mongoose_1.Schema({
         default: Date.now
     }
 }, { timestamps: true });
-var orderModel = mongoose_1.default.model("Orders", orderSchema);
+const orderModel = mongoose_1.default.model("Orders", orderSchema);
 exports.default = orderModel;

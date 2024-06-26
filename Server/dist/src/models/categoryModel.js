@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = require("mongoose");
-var categorySchema = new mongoose_1.Schema({
+const mongoose_1 = require("mongoose");
+const categorySchema = new mongoose_1.Schema({
     categoryname: {
         type: String,
         required: true,
@@ -25,5 +25,5 @@ var categorySchema = new mongoose_1.Schema({
         default: false,
     },
 }, { timestamps: true });
-var Category = (0, mongoose_1.model)("category", categorySchema);
+const Category = (0, mongoose_1.model)("category", categorySchema);
 exports.default = Category;

@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = __importDefault(require("mongoose"));
-var messageSchema = new mongoose_1.default.Schema({
+const mongoose_1 = __importDefault(require("mongoose"));
+const messageSchema = new mongoose_1.default.Schema({
     conversationId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: 'chatModel',
@@ -38,5 +38,5 @@ var messageSchema = new mongoose_1.default.Schema({
 }, {
     timestamps: true,
 });
-var MessageModel = mongoose_1.default.model('message', messageSchema);
+const MessageModel = mongoose_1.default.model('message', messageSchema);
 exports.default = MessageModel;

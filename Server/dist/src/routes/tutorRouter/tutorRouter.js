@@ -4,13 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tutorRouter = void 0;
-var express_1 = __importDefault(require("express"));
-var tutorRouter = express_1.default.Router();
+const express_1 = __importDefault(require("express"));
+const tutorRouter = express_1.default.Router();
 exports.tutorRouter = tutorRouter;
-var tutorController_1 = require("../../controller/tutorController/tutorController");
-var tutorMiddleware_1 = require("../../middleware/tutorMiddleware");
-var upload_1 = __importDefault(require("../../multer/upload"));
-tutorRouter.get("/", function (req, res) {
+const tutorController_1 = require("../../controller/tutorController/tutorController");
+const tutorMiddleware_1 = require("../../middleware/tutorMiddleware");
+const upload_1 = __importDefault(require("../../multer/upload"));
+tutorRouter.get("/", (req, res) => {
     res.json({ status: true });
 });
 tutorRouter.post("/tutorregister", tutorController_1.tutorRegistration);

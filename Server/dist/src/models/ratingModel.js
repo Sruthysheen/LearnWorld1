@@ -23,8 +23,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = __importStar(require("mongoose"));
-var ratingSchema = new mongoose_1.Schema({
+const mongoose_1 = __importStar(require("mongoose"));
+const ratingSchema = new mongoose_1.Schema({
     courseId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: 'courseModel'
@@ -46,5 +46,5 @@ var ratingSchema = new mongoose_1.Schema({
         default: Date.now,
     },
 });
-var ratingModel = mongoose_1.default.model('ratingModel', ratingSchema);
+const ratingModel = mongoose_1.default.model('ratingModel', ratingSchema);
 exports.default = ratingModel;

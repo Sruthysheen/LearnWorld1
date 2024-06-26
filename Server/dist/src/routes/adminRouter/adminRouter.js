@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.adminRouter = void 0;
-var express_1 = __importDefault(require("express"));
-var adminRouter = express_1.default.Router();
+const express_1 = __importDefault(require("express"));
+const adminRouter = express_1.default.Router();
 exports.adminRouter = adminRouter;
-var adminController_1 = require("../../controller/adminController/adminController");
-var adminMiddleware_1 = require("../../middleware/adminMiddleware");
+const adminController_1 = require("../../controller/adminController/adminController");
+const adminMiddleware_1 = require("../../middleware/adminMiddleware");
 adminRouter.post('/adminlogin', adminController_1.loginAdmin);
 adminRouter.get('/adminstudent', adminMiddleware_1.isAdmin, adminController_1.listAllStudents);
 adminRouter.put('/blockstudent/:id', adminMiddleware_1.isAdmin, adminController_1.blockStudent);

@@ -23,8 +23,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = __importStar(require("mongoose"));
-var LessonProgressSchema = new mongoose_1.Schema({
+const mongoose_1 = __importStar(require("mongoose"));
+const LessonProgressSchema = new mongoose_1.Schema({
     lessonId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         required: true
@@ -34,7 +34,7 @@ var LessonProgressSchema = new mongoose_1.Schema({
         default: false
     }
 });
-var StudentsProgressSchema = new mongoose_1.Schema({
+const StudentsProgressSchema = new mongoose_1.Schema({
     studentId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: 'Student',
@@ -42,7 +42,7 @@ var StudentsProgressSchema = new mongoose_1.Schema({
     },
     progress: [LessonProgressSchema]
 });
-var courSchema = new mongoose_1.Schema({
+const courSchema = new mongoose_1.Schema({
     courseName: {
         type: String,
         required: true
@@ -121,5 +121,5 @@ var courSchema = new mongoose_1.Schema({
         default: Date.now
     }
 });
-var Course = mongoose_1.default.model("courseModel", courSchema);
+const Course = mongoose_1.default.model("courseModel", courSchema);
 exports.default = Course;

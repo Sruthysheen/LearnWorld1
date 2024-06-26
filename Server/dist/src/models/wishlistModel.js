@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = __importDefault(require("mongoose"));
-var wishListItemSchema = new mongoose_1.default.Schema({
+const mongoose_1 = __importDefault(require("mongoose"));
+const wishListItemSchema = new mongoose_1.default.Schema({
     student: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "Student",
@@ -18,5 +18,5 @@ var wishListItemSchema = new mongoose_1.default.Schema({
         }
     ],
 });
-var WishListModel = mongoose_1.default.model("wishList", wishListItemSchema);
+const WishListModel = mongoose_1.default.model("wishList", wishListItemSchema);
 exports.default = WishListModel;
