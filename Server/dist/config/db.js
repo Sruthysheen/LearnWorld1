@@ -8,7 +8,7 @@ var dbName = 'LearnWorld';
 var dbUrl = process.env.MONGO_URL;
 var connectToDb = {
     connect: function () {
-        mongoose_1.default.connect(dbUrl, { dbName: dbName })
+        mongoose_1.default.connect(process.env.MONGO_URL, { dbName: dbName })
             .then(function () { return console.log('Connected to MongoDB'); })
             .catch(function (error) { return console.error('Error connecting to MongoDB:', error); });
     }

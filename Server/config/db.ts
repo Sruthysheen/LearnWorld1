@@ -4,7 +4,7 @@ const dbUrl = process.env.MONGO_URL
 
 const connectToDb = {
     connect: ()=>{
-        mongoose.connect(dbUrl,{dbName})
+        mongoose.connect(process.env.MONGO_URL,{dbName})
         .then(() => console.log('Connected to MongoDB'))
         .catch(error => console.error('Error connecting to MongoDB:',error));
     }
