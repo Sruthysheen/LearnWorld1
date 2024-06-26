@@ -64,6 +64,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 require("dotenv/config");
+var dotenv_1 = __importDefault(require("dotenv"));
 var db_1 = __importDefault(require("../config/db"));
 var express_session_1 = __importStar(require("express-session"));
 var studentRouter_1 = require("./routes/studentRouter/studentRouter");
@@ -75,6 +76,7 @@ var cors_1 = __importDefault(require("cors"));
 var nocache_1 = __importDefault(require("nocache"));
 var morgan_1 = __importDefault(require("morgan"));
 var chatRouter_1 = __importDefault(require("./routes/chatRouter/chatRouter"));
+dotenv_1.default.config();
 var app = (0, express_1.default)();
 var port = Number(process.env.PORT);
 var server = http_1.default.createServer(app);

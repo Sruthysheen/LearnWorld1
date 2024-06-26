@@ -1,5 +1,6 @@
 import express , {Express} from "express";
 import "dotenv/config";
+import dotenv from 'dotenv'
 import connectDb from "../config/db";
 import session, { SessionOptions,MemoryStore,SessionData } from "express-session"
 import {studentRouter} from "./routes/studentRouter/studentRouter";
@@ -15,7 +16,7 @@ import path from "path";
 import morgan from 'morgan'
 import chatRouter from "./routes/chatRouter/chatRouter";
 
-
+dotenv.config()
 const app:Express = express()
 const port:number = Number(process.env.PORT)
 const server =http.createServer(app)
