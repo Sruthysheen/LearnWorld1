@@ -47,7 +47,7 @@ const server = http_1.default.createServer(app);
 const store = new express_session_1.MemoryStore();
 console.log(process.env.PORT, 'port number in the env');
 const io = require('socket.io')(5001, {
-    cors: { origin: "http://localhost:5173" }
+    cors: { origin: "https://learnworld.online" }
 });
 let users = [];
 const emailToSocketIdMap = new Map();
@@ -112,7 +112,7 @@ app.use((0, express_session_1.default)({
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)({
-    origin: "http://localhost:5173",
+    origin: "https://learnworld.online",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));

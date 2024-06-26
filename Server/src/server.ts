@@ -44,7 +44,7 @@ declare module 'express-session'{
 
 console.log(process.env.PORT,'port number in the env')
 const io:Server = require('socket.io')(5001, {
-    cors: { origin: "http://localhost:5173" }
+    cors: { origin: "https://learnworld.online" }
   });
 
   let users: any = [];
@@ -140,7 +140,7 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://learnworld.online",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));

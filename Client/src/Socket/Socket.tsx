@@ -6,7 +6,7 @@ export const useSocket = (): Socket<DefaultEventsMap, DefaultEventsMap> | null =
   const [socket, setSocket] = useState<Socket<DefaultEventsMap, DefaultEventsMap> | null>(null);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5001", {
+    const newSocket = io("https://learnworld.online", {
       reconnection: true,
       secure: true,
       transports: ['polling', 'websocket'], // required

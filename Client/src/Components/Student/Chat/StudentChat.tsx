@@ -71,7 +71,7 @@ function StudentChat() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5001");
+    const newSocket = io("https://learnworld.online");
     setSocket(newSocket);
 
     return () => {

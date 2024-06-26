@@ -335,7 +335,7 @@ export const fetchStudentProgress = async(courseId:string,studentId:string)=>{
 
   export const axiosTest=async()=>{
     
-    const response=await axiosInstance.get('http://localhost:5000/student/test')
+    const response=await axiosInstance.get('https://learnworld.online/student/test')
     console.log(response,'TTTEST RESPONCE');
     
 
