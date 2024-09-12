@@ -10,7 +10,7 @@ import { toast } from 'sonner';
 
 function Otp() {
 const [otp, setOtp] = useState(''); 
-const [counter, setCounter] = React.useState(15);
+const [counter, setCounter] = React.useState(30);
 const navigate = useNavigate();
 const location = useLocation();
   

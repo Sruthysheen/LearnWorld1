@@ -9,7 +9,7 @@ import { tutorregister } from '../../../Slices/tutorSlice/tutorSlice';
 function TutorOtp() {
 
     const [otp, setOtp] = useState('');
-    const [counter, setCounter] = React.useState(15);
+    const [counter, setCounter] = React.useState(30);
     const navigate = useNavigate();
 const dispatch=useDispatch()
 
