@@ -36,7 +36,7 @@ const dispatch=useDispatch()
         
         const res: any = await resendOtpTutor(); 
        if(res.status==200){
-        setCounter(15)
+        setCounter(30)
         toast.success("Resend otp send success")
        }else{
         toast.success("Resend otp send failed")
