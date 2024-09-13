@@ -16,7 +16,7 @@ const generateAccessToken = (student_id) => {
 exports.generateAccessToken = generateAccessToken;
 const generateRefreshToken = (student_id) => {
     const token = jsonwebtoken_1.default.sign({ student_id }, process.env.JWT_REFRESHSECRET, {
-        expiresIn: "50s",
+        expiresIn: "2h",
     });
     console.log("token", token);
     return token;
