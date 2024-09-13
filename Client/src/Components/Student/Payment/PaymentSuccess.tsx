@@ -4,6 +4,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { deleteCart } from '../../../Utils/config/axios.PostMethods';
 
+
 function PaymentSuccess() {
 
     const cartId = useSelector((state: any) => state.cart.cartId);
@@ -38,14 +39,14 @@ function PaymentSuccess() {
 
       useEffect(() => {
         (async()=>{
-         if (cartId) {
+         if (studentId) {
            await clearCart();
          } else {
-           toast.error("CART ID IS NOT FOUN D")
+           toast.error("CART ID IS NOT FOUND")
          }
         })()
          
-       }, [cartId]);
+       }, [studentId]);
 
 
   return (
